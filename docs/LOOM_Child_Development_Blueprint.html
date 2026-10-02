@@ -242,7 +242,9 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <div><dt>Global Opportunity</dt><dd>Arts, Design &amp; Culture</dd></div>
     <div><dt>Age band</dt><dd class="num">8 – 18 years</dd></div>
     <div><dt>Artifact</dt><dd>Offline-first PWA</dd></div>
-    <div><dt>Builds on</dt><dd>React 18 · Node/Express · PostgreSQL</dd></div>
+    <div><dt>Front end</dt><dd>React 18 · Vite · TypeScript</dd></div>
+    <div><dt>Back end</dt><dd>Node/Express · Sequelize</dd></div>
+    <div><dt>Data</dt><dd>Supabase Postgres + Storage</dd></div>
     <div><dt>Women's modules</dt><dd>Kept, and extended</dd></div>
   </dl>
 </header>
@@ -535,7 +537,29 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
 <!-- ============ 06 TECH ============ -->
 <section>
   <div class="shead"><span class="snum">06</span><h2>The full-stack build</h2></div>
-  <p class="sdek">The earlier mission note proposed a downloadable desktop application. For a full-stack web specialisation — and, more importantly, for the devices these classrooms actually have — the stronger artifact is an <b>offline-first progressive web application</b>. It installs to the home screen without a store, runs on the shared Android phone and the staffroom laptop from one codebase, updates without redistributing an installer, and extends the React and Express stack already in this repository. Choosing the PWA is itself an argued technical contribution, and should be defended as one in Chapter One.</p>
+  <p class="sdek">The earlier mission note proposed a downloadable desktop application. For a full-stack web specialisation — and, more importantly, for the devices these classrooms actually have — the stronger artifact is an <b>offline-first progressive web application</b>. It installs to the home screen without a store, runs on the shared Android phone and the staffroom laptop from one codebase, updates without redistributing an installer, and extends the React and Express stack already in this repository. Choosing the PWA is itself an argued technical contribution, and should be defended as one in Chapter One — as should the two toolchain decisions below.</p>
+
+
+  <h3 style="font-size:1.12rem;margin-bottom:6px">Stack decisions</h3>
+  <p style="font-size:14.6px;color:var(--ink-soft);margin-bottom:16px">Three choices were made against what the repository actually contains today, not against what its README claims. Each is defensible in Chapter One as an engineering decision rather than a preference.</p>
+
+  <div class="scroller" style="margin-bottom:16px">
+    <table>
+      <thead><tr><th style="width:17%">Layer</th><th style="width:25%">Today</th><th style="width:27%">For Loom</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><b>Build tool</b></td><td>Create React App (<code>react-scripts</code> 5)</td><td><b>Vite</b></td><td>CRA blocks all three PWA pillars: the service worker needs <code>craco</code> or an eject to reach webpack config, ONNX <code>.wasm</code> assets need manual copying, and workers are awkward. CRA is also deprecated. Vite handles all three natively.</td></tr>
+        <tr><td><b>Language, front end</b></td><td>JavaScript — 26 <code>.jsx</code>, no <code>tsconfig</code>, no <code>typescript</code> dependency</td><td><b>TypeScript for new Loom code only</b>, <code>allowJs: true</code></td><td>Typed where errors are silent and expensive — the signal axes, the sync state machine, the API contract. Existing women's, donor and NGO pages stay <code>.jsx</code> untouched.</td></tr>
+        <tr><td><b>Language, back end</b></td><td>JavaScript, Sequelize</td><td><b>Stays JavaScript</b></td><td>Sequelize with TypeScript costs more friction than it returns mid-project. Shared request and response types live in one <code>shared/types</code> folder both sides import.</td></tr>
+        <tr><td><b>Database</b></td><td>Supabase as a plain Postgres host via Sequelize — no <code>supabase-js</code>, no RLS</td><td><b>Unchanged</b>, plus <b>Supabase Storage</b></td><td>The connection works; leave it. Storage holds <code>CreativeWork</code> media — drawings, audio, photographed paper work — replacing the AWS S3 plan and removing one account to manage.</td></tr>
+        <tr><td><b>Client → data path</b></td><td>Browser → Express → Postgres</td><td><b>Unchanged.</b> No direct <code>supabase-js</code> from the browser</td><td>Two reasons, both load-bearing: Supabase offers no offline write path, so the IndexedDB outbox is doing that work anyway; and going direct would make RLS policies the entire security boundary for trauma histories and safeguarding alerts.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid2" style="margin-bottom:26px">
+    <div class="note info"><b>The migration is small — do it in Phase 1.</b> The front end is about 30 files. CRA to Vite is moving <code>index.html</code> to the root, swapping <code>process.env.REACT_APP_*</code> for <code>import.meta.env.VITE_*</code>, and fixing imports. One to two days, and it buys TypeScript and the whole PWA toolchain in a single decision instead of three. Doing it before the Studio is written costs far less than retrofitting it afterwards.</div>
+    <div class="note"><b>Two Supabase constraints to plan for.</b> Free-tier projects pause after roughly a week of inactivity, which is a real risk across a 12-week field deployment — budget for the paid tier or build a keep-alive. And check the current region list before provisioning: round-trip latency from East Africa is a measurable part of sync time, so pick the closest available region and record the choice in your methodology.</div>
+  </div>
 
   <h3 style="font-size:1.12rem;margin-bottom:12px">New data models · <code>backend/src/models/</code></h3>
   <div class="scroller">
@@ -576,16 +600,17 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
       </ul>
     </div>
     <div class="card">
-      <h3 style="font-size:1.05rem;margin-bottom:12px">Front end · <code>frontend/src/</code></h3>
+      <h3 style="font-size:1.05rem;margin-bottom:12px">Front end · <code>frontend/src/</code> <span class="tag t-ind" style="margin-left:4px">TypeScript</span></h3>
       <ul style="margin:0;padding-left:1.15em;font-size:14.3px;color:var(--ink-soft);display:grid;gap:7px">
-        <li><code>pages/child/Studio.jsx</code> — HTML5 canvas, Pointer Events, pressure and tilt, undo stack</li>
-        <li><code>pages/child/StoryBooth.jsx</code> — MediaRecorder, waveform, listen-back</li>
-        <li><code>pages/child/MyThread.jsx</code> — the portfolio timeline</li>
-        <li><code>pages/child/Quests.jsx</code> — three open briefs, icon-first, audio-led</li>
-        <li><code>pages/ngo/ClassroomConsole.jsx</code> — cohort heatmap, batch review</li>
-        <li><code>pages/ngo/AlertTriage.jsx</code> — human-in-the-loop confirmation</li>
-        <li><code>pages/woman/AtelierGuide.jsx</code> — select, cost and produce children's designs</li>
-        <li><code>components/studio/GrowthRadar.jsx</code> — six-axis radar on Recharts, already a dependency</li>
+        <li><code>pages/child/Studio.tsx</code> — HTML5 canvas, Pointer Events, pressure and tilt, undo stack</li>
+        <li><code>pages/child/StoryBooth.tsx</code> — MediaRecorder, waveform, listen-back</li>
+        <li><code>pages/child/MyThread.tsx</code> — the portfolio timeline</li>
+        <li><code>pages/child/Quests.tsx</code> — three open briefs, icon-first, audio-led</li>
+        <li><code>pages/ngo/ClassroomConsole.tsx</code> — cohort heatmap, batch review</li>
+        <li><code>pages/ngo/AlertTriage.tsx</code> — human-in-the-loop confirmation</li>
+        <li><code>pages/woman/AtelierGuide.tsx</code> — select, cost and produce children's designs</li>
+        <li><code>components/studio/GrowthRadar.tsx</code> — six-axis radar on Recharts, already a dependency</li>
+        <li><code>shared/types/</code> — the signal axes, competency states and sync operations, imported by both sides</li>
       </ul>
     </div>
   </div>
@@ -594,7 +619,7 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <div class="card">
       <h3 style="font-size:1.05rem;margin-bottom:12px">Offline-first layer</h3>
       <ul style="margin:0;padding-left:1.15em;font-size:14.3px;color:var(--ink-soft);display:grid;gap:7px">
-        <li><b>Service worker</b> (Workbox) — app shell precache, stale-while-revalidate for media, model files cached on first run</li>
+        <li><b>Service worker</b> via <code>vite-plugin-pwa</code> (Workbox under the hood) — app shell precache, stale-while-revalidate for media, model files cached on first run. One plugin, no eject.</li>
         <li><b>IndexedDB via Dexie</b> — works, signals, quests and the outbox persist locally; a full session completes with the radio off</li>
         <li><b>Background Sync</b> — the outbox drains when connectivity returns; every operation carries an idempotency key</li>
         <li><b>Conflict policy</b> — server-authoritative for competency state, last-write-wins for drafts, append-only for works and signals, so nothing a child made can be overwritten</li>
@@ -605,7 +630,7 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
       <h3 style="font-size:1.05rem;margin-bottom:12px">On-device scoring</h3>
       <ul style="margin:0;padding-left:1.15em;font-size:14.3px;color:var(--ink-soft);display:grid;gap:7px">
         <li><b>Explainable features first</b> — stroke count, path length, curvature variance, closure rate, ink coverage, symmetry, bounding-box ratio, computed in plain JavaScript. These work with no model at all and give the project a defensible floor.</li>
-        <li><b>Quantised vision model</b> — a MobileNet-class backbone with regression heads, run through ONNX Runtime Web (WASM + SIMD) in a Web Worker so the canvas never stutters</li>
+        <li><b>Quantised vision model</b> — a MobileNet-class backbone with regression heads, run through ONNX Runtime Web (WASM + SIMD) in a Web Worker so the canvas never stutters. Vite resolves the <code>.wasm</code> assets and the module worker without config surgery.</li>
         <li><b>Audio features</b> — Web Audio <code>AnalyserNode</code> for cadence, pause ratio and pitch variance; optional on-device transcription for lexical diversity</li>
         <li><b>Budget</b> — under three seconds per submission on a 2&nbsp;GB Android, models under 15&nbsp;MB total</li>
         <li><b>Human-in-the-loop</b> — every signal is advisory, every alert is confirmed by a trained adult, and no score is ever shown to a child as a grade</li>
@@ -711,7 +736,7 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
         <tr><td><b>Geographic</b></td><td>Two partner institutions — All Nations Christian Care Preparatory School and Watoto Child Care — in a single urban locality</td><td>National rollout; multi-country deployment</td></tr>
         <tr><td><b>Population</b></td><td>60–120 learners aged 8–18 across the four stage bands; 6 educators and administrators; 8 women from the existing cooperative as Atelier Guides</td><td>Under-8s; out-of-school youth; mainstream well-resourced schools</td></tr>
         <tr><td><b>Time</b></td><td>10-month development cycle with a 12-week supervised field deployment</td><td>Multi-year longitudinal validation (named as future work)</td></tr>
-        <tr><td><b>Technical</b></td><td>Offline-first PWA; on-device inference; English, Kiswahili and French; the existing React / Express / PostgreSQL stack</td><td>Native iOS and Android builds; real-time video; blockchain credentialing; automated clinical diagnosis</td></tr>
+        <tr><td><b>Technical</b></td><td>Offline-first PWA on React 18 + Vite + TypeScript; Node/Express and Sequelize; Supabase Postgres and Storage; on-device inference; English, Kiswahili and French</td><td>Native iOS and Android builds; real-time video; blockchain credentialing; automated clinical diagnosis</td></tr>
         <tr><td><b>Devices</b></td><td>Android 9+ Chrome on 2&nbsp;GB RAM; staffroom Windows laptops; one shared device per 5–8 learners</td><td>Per-child device provision; tablet procurement</td></tr>
         <tr><td><b>Assessment</b></td><td>Screening and early warning, teacher-confirmed, advisory only</td><td>Clinical diagnosis; any automated referral without a human decision</td></tr>
         <tr><td><b>Commerce</b></td><td>A pilot Atelier run — a limited number of designs produced and sold through existing donation rails, with a recorded revenue split</td><td>Full e-commerce; payment processing at scale; export logistics</td></tr>
@@ -814,7 +839,7 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <table>
       <thead><tr><th style="width:13%">Months</th><th style="width:26%">Phase</th><th>Ships</th></tr></thead>
       <tbody>
-        <tr><td class="num"><b>1–2</b></td><td>Foundations and consent</td><td>Child account and PIN auth, guardian consent ledger, new models and migration, role routing, ethics approval submitted</td></tr>
+        <tr><td class="num"><b>1–2</b></td><td>Foundations and consent</td><td><b>CRA to Vite migration and TypeScript set up</b>, child account and PIN auth, guardian consent ledger, new models and migration, Supabase Storage bucket and policies, role routing, ethics approval submitted</td></tr>
         <tr><td class="num"><b>2–4</b></td><td>The Studio</td><td>Canvas with pressure and undo, MediaRecorder story booth, photo capture of paper work, audio-led icon-first navigation in three languages</td></tr>
         <tr><td class="num"><b>4–5</b></td><td>Offline core</td><td>Service worker, IndexedDB outbox, batch sync endpoint, idempotency and conflict policy, install prompt — a full session with the radio off</td></tr>
         <tr><td class="num"><b>5–6</b></td><td>Scoring pipeline</td><td>Explainable feature extraction first, then the quantised vision model in a Web Worker; acoustic features; local norming begun</td></tr>
