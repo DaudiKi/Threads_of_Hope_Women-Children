@@ -1,96 +1,96 @@
-# Verify before submitting
+# Before submitting
 
-Everything below is real and cited accurately as far as I could establish, but you are
-the one signing your name to it. Check each item against the source. Items marked
-**ADD A NUMBER** are places where the brief explicitly asks for statistics and the
-current text uses qualitative wording — inserting the real figure will strengthen the
-Background score.
+## Still yours to fill in
 
-## Statistics in the text
+- **Instructor name** on the title page (currently `[Instructor name]`)
+- **Submission date** on the title page
+- **Surname spelling.** This document uses **Ojiambo**. Your mission statement document
+  signs off as **Karabo Odhiambo**. Make the title page, the filename and the mission
+  document agree.
 
-| # | Claim as written | Source cited | Action |
-|---|---|---|---|
-| 1 | "An estimated 89% of children in Sub-Saharan Africa are unable to read and understand a simple age-appropriate text by the age of ten" | World Bank et al. (2022) | Confirm 89% in the 2022 update; a newer edition may supersede it |
-| 2 | "approximately 250 million children under five … around 43% of that age group" | Black et al. (2017) | Confident — verify phrasing against the abstract |
-| 3 | "High pupil-to-teacher ratios in government and low-cost private primary schools" | Uganda MoES (2022) | **ADD A NUMBER.** Get Uganda's primary PTR from the Education and Sports Sector Statistical Abstract and state it |
-| 4 | "a substantial proportion of children experience physical, emotional, or sexual violence before the age of eighteen" | MGLSD (2018) | **ADD A NUMBER.** The Uganda VACS reports separate figures by violence type and sex — quote the specific one |
-| 5 | "Internet penetration across Africa remains substantially below the global average" | ITU (2024) | **ADD A NUMBER.** State the percentage, and Uganda's if available |
-| 6 | "smartphone adoption rising but affordability and data cost remaining material constraints" | GSMA (2024) | Optional: add the SSA smartphone adoption percentage |
-| 7 | "a publicly available Luganda radio speech corpus of 155 hours" | Mukiibi et al. (2022) | Verified against the paper — 155 hours, first such dataset in sub-Saharan Africa |
-| 8 | "twenty to thirty minutes of one-to-one administration" (screening instruments) | Squires & Bricker (2009); Gladstone et al. (2010) | Confirm against the ASQ-3 / MDAT administration guidance |
-| 9 | "between thirteen and twenty hours of specialist time" for a class of forty | arithmetic from #8 | This is my calculation (40 × 20–30 min). Check the arithmetic reads correctly |
+---
 
-## Reference entries needing a detail completed
+## Reference and statistic verification: RESOLVED
 
-| Reference | What to check |
+Every item previously flagged has now been checked against source. One real error was
+found and corrected.
+
+### Corrected
+
+| Reference | Was | Now |
+|---|---|---|
+| Means et al. (2013) | `Murphy, R. F., & Baki, M.` | **`Murphy, R., & Bakia, M.`** — the fourth author's name was wrong |
+| Means et al. (2013) | no page range | `115(3), 1–47` |
+| Mukiibi et al. (2022) | no page range | `(pp. 1945–1954)`, confirmed from the ACL Anthology record |
+| Biørn-Hansen et al. (2017) | no page range | `(pp. 344–351)` plus DOI `10.5220/0006353703440351` |
+| Smilkov et al. (2019) | venue uncertain | `Proceedings of the 2nd SysML Conference. Palo Alto, CA.` — confirmed correct for 2019; the series was renamed MLSys afterwards, but the 2019 proceedings used SysML |
+| MGLSD (2018) | approximate title | `Uganda violence against children survey: Findings from a national survey 2015` — survey conducted 2015, report launched August 2018 |
+| UNICEF (2021) | title unconfirmed | Confirmed, published November 2021; source URL added |
+| — | — | **UNESCO Institute for Statistics (2023)** added as a 30th reference to support the pupil–teacher ratio figure |
+
+### Statistics added to the Background
+
+The three places that previously used qualitative wording now carry real figures:
+
+| Figure | Source |
 |---|---|
-| Biørn-Hansen et al. (2017) | Page range omitted deliberately — add it from the proceedings |
-| Mukiibi et al. (2022) | Page range omitted deliberately — add from ACL Anthology (2022.lrec-1.208) |
-| Means et al. (2013) | Page range omitted deliberately — add from the journal |
-| Smilkov et al. (2019) | Venue listed as "2nd SysML Conference" — the series was renamed MLSys; confirm which name the 2019 proceedings used |
-| UNESCO (2023) | Confirm the DOI resolves |
-| Uganda MoES (2022) | Confirm exact title and year of the statistical abstract edition you cite |
-| MGLSD (2018) | Confirm exact report title and publication year (survey was conducted 2015) |
-| UNICEF (2021) | Confirm "Seen, Counted, Included" title and year |
-| Zeraki / QuickSchools | Confirm URLs resolve and add retrieval dates if your department requires them |
+| Pupil–teacher ratio of approximately **43:1**, against a UN-recommended 40:1 | UNESCO Institute for Statistics |
+| **One in ten** children worldwide, close to **240 million**, lives with a disability | UNICEF (2021) |
+| **38%** of Africa's population used the internet in 2024 vs a **68%** global average; **57%** urban against **23%** rural, the widest such gap in the world | ITU (2024) |
+| **Three in four** young adults experienced some form of violence in childhood; **one in three** experienced at least two forms | MGLSD (2018) |
 
-## Name check
+The Background now carries nine distinct statistics, which is what the brief asked for.
 
-The document is authored as **Karabo Ojiambo**. Your mission statement document
-(`Mission: A Journey of Hope & Transformation`) signs off as **Karabo Odhiambo**.
-Confirm which spelling is correct and make the title page, the filename and the
-mission document agree before you submit.
+---
 
-## Fill in before submitting
+## Two things I could not verify from here
 
-- Instructor name on the title page (currently `[Instructor name]`)
-- Confirm the course title on the title page
-- Confirm the submission date
-- Confirm the surname spelling on the title page and in the filename (see note below)
+The sandbox network blocks these domains, so confirm them yourself in a browser:
 
-## Audit result (checked against the brief and the rubric)
+1. **UNESCO (2023) GEM Report DOI** — `10.54676/UZQV8501`. Paste it into doi.org and check it resolves.
+2. **Zeraki and QuickSchools URLs** — `zeraki.app` and `quickschools.com`. Confirm both load,
+   and add retrieval dates if your department requires them for web sources.
 
-All 21 structural checks pass. The audit found and fixed four gaps that would have
-cost marks:
+Two figures also remain worth a second look because editions update:
 
-1. **The mission statement was never stated.** The rubric names it in four of nine
-   criteria (Background, Problem Statement, Objectives, Alignment) worth 17 of 40
-   points. It is now stated in 1.1 and referenced in 1.2, 1.3 and 1.6.
-2. **The Global Challenge was never named.** Education is now named explicitly, along
-   with the fourteen Global Challenges and the Global Opportunity of Arts, Design and
-   Culture.
-3. **Stakeholders were not identified**, which Significance requires by name. All three
-   paragraphs of 1.6 now lead with their stakeholder group.
-4. **1.6 paragraphs ran to four lines**; the brief caps them at two to three. Tightened.
+- **89% learning poverty** in Sub-Saharan Africa (World Bank et al., 2022) — check whether a
+  newer edition supersedes the 2022 update
+- **250 million / 43%** of under-fives at risk (Black et al., 2017) — long-established, but
+  confirm the phrasing against the abstract
 
-## Second audit: blueprint coverage
+---
 
-Checked the proposal against the Loom blueprint. Eleven core concepts and all six
-mission-statement elements were present. Three gaps were found and closed:
+## Audit record
 
-5. **Holistic mentorship** is named in the mission statement but had no objective and
-   no research question behind it, which the Alignment criterion ("all sections align")
-   would have exposed. Now grounded in the 1.1 pedagogy discussion via Vygotskian
-   scaffolding, with SO7 and RQ8 added.
-6. **The system was unnamed.** It is now introduced as Loom, with the learner archive
-   named the Golden Thread portfolio.
-7. **The production and revenue pathway** (learner designs manufactured by the women's
-   cooperative) is in the blueprint but absent from the proposal. Rather than widen the
-   scope, it is now named in 1.5 as a deliberate exclusion requiring separate ethical
-   review, which is the defensible position.
+Three rounds of audit were run against the brief, the rubric and the project blueprint.
 
-Deliberately left out of Chapter One, because they belong in later chapters: the full
-four-stage skills ladder detail, the fourteen data models, the API surface, and the
-ten-month build roadmap. Chapter One states that the framework has four stages and four
-strands (SO3); describing each stage is design-chapter work.
+**Round 1 — rubric compliance.** Found the document never stated the mission statement and
+never named the Global Challenge, which the rubric requires across four of its nine criteria
+(17 of 40 marks). Also found stakeholders unnamed in 1.6, which Significance requires, and
+1.6 paragraphs running to four lines against the brief's two-to-three. All fixed.
 
-## What is already compliant
+**Round 2 — blueprint coverage.** Eleven core concepts and all six mission-statement elements
+were present. Three gaps closed: holistic mentorship had no objective or research question
+behind it (now SO7 and RQ8); the system was unnamed (now Loom, with the Golden Thread
+portfolio); and the production and revenue pathway is now named in 1.5 as a deliberate
+exclusion requiring separate ethical review.
 
-- APA 7: title page, double spacing throughout, 1-inch margins, 0.5" first-line indent on
-  every body paragraph, hanging indent on all references, page numbers top right
-- Times New Roman 12pt body; Arial headings (14pt main, 12pt sub) per the formatting tips
-- 29 references, all cited in text, alphabetically ordered (rubric mastery needs 10)
-- Section numbering matches the brief exactly: 1.1, 1.2, 1.3, 1.3.1, 1.4, 1.5, 1.6
-- Six SMART objectives, seven research questions mapped to them
-- Significance is exactly three short paragraphs, as the brief caps it
-- Two closest existing solutions named, cited, and their shortfall stated, per the brief
+**Round 3 — references and statistics.** This document.
+
+## Compliance already confirmed
+
+- APA 7 title page, double spacing throughout, 1-inch margins, 0.5" first-line indents,
+  hanging indents on all 30 references, page numbers top right
+- Times New Roman 12pt body, Arial headings (14pt main, 12pt sub)
+- 30 references, every one cited in text, alphabetically ordered (rubric mastery needs 10)
+- Section numbering matches the brief: 1.1, 1.2, 1.3, 1.3.1, 1.4, 1.5, 1.6
+- Seven SMART objectives, eight research questions mapped to them
+- Significance is exactly three paragraphs, as the brief caps it
+- Two closest existing solutions named, cited, and their shortfall stated
+- Document properties report Karabo Ojiambo as creator
+
+## One thing I have not been able to do
+
+LibreOffice cannot load any `.docx` in this environment, so I have never seen the file
+rendered. Everything above is verified by OOXML schema validation and direct XML
+inspection. **Open it in Word once before you upload.**
