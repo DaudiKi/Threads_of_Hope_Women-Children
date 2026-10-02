@@ -4,9 +4,18 @@
 
 - **Instructor name** on the title page (currently `[Instructor name]`)
 - **Submission date** on the title page
-- **Surname spelling.** This document uses **Ojiambo**. Your mission statement document
-  signs off as **Karabo Odhiambo**. Make the title page, the filename and the mission
-  document agree.
+
+Nothing else. Everything below is already verified and needs no action.
+
+---
+
+## Surname: settled
+
+**Ojiambo** is correct and confirmed. The title page, the filename
+and the document properties all use it, so this proposal needs no change. Note that your
+mission statement document (`Mission: A Journey of Hope & Transformation`) signs off as
+"Karabo Odhiambo" — that file is the one to correct, so the two agree if a marker reads
+both.
 
 ---
 
