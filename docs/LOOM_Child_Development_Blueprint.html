@@ -242,7 +242,7 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <div><dt>Global Opportunity</dt><dd>Arts, Design &amp; Culture</dd></div>
     <div><dt>Age band</dt><dd class="num">8 – 18 years</dd></div>
     <div><dt>Setting</dt><dd>Kampala, Uganda</dd></div>
-    <div><dt>Languages</dt><dd>English · Luganda · Kiswahili</dd></div>
+    <div><dt>Interface</dt><dd>English · Luganda · Kiswahili · Kinyarwanda</dd></div>
     <div><dt>Artifact</dt><dd>Offline-first PWA</dd></div>
     <div><dt>Front end</dt><dd>React 18 · Vite · TypeScript</dd></div>
     <div><dt>Back end</dt><dd>Node/Express · Sequelize</dd></div>
@@ -295,7 +295,7 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <div class="engine-in">
       <h4>The child makes</h4>
       <p><b>One drawing</b> — on the canvas, or photographed from paper with the classroom phone.</p>
-      <p><b>One spoken story</b> — 30 to 90 seconds, in Luganda, English or Kiswahili, about the thing they drew.</p>
+      <p><b>One spoken story</b> — 30 to 90 seconds, in whatever language the child thinks in, about the thing they drew.</p>
       <p style="font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;opacity:.8;padding-top:4px">NO READING REQUIRED · NO INTERNET REQUIRED</p>
     </div>
     <div class="engine-arrow" aria-hidden="true">→</div>
@@ -322,7 +322,7 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <div><h4>Mastery, not age-grading<span>competency-based progression</span></h4><p><b>A fourteen-year-old who lost four years of school starts at the stage their work places them in</b> and moves at their own pace. Attainment states are <i>not yet · emerging · secure · mastery</i>. There is no failure state anywhere in the data model.</p></div>
     <div><h4>Invisible, formative assessment<span>assessment as learning</span></h4><p><b>The assessment is the artwork.</b> No timed tests, no exam room, no literacy requirement. A child who has never sat a written paper still generates a complete developmental profile by drawing their grandmother.</p></div>
     <div><h4>Trauma-informed by construction<span>strengths-based practice</span></h4><p><b>Strengths-first language, no red fail states, no public leaderboards.</b> Safeguarding indicators are never shown to the child, never shown to peers, and never auto-escalate — they open a private triage card for a named, trained adult.</p></div>
-    <div><h4>Culturally sustaining content<span>Paris &amp; Alim</span></h4><p><b>Briefs are built from Baganda motif and barkcloth traditions, kitenge pattern systems, Luganda proverbs and folktales, and family oral history</b> — not translated Western worksheets. Luganda is a first-class interface language beside English and Kiswahili, with recorded audio instruction on every screen for non-readers.</p></div>
+    <div><h4>Culturally sustaining content<span>Paris &amp; Alim</span></h4><p><b>Briefs are built from Baganda motif and barkcloth traditions, kitenge pattern systems, Luganda proverbs and folktales, and family oral history</b> — not translated Western worksheets. The interface ships in Luganda, English, Kiswahili and Kinyarwanda, each with recorded audio instruction on every screen so no step depends on reading.</p></div>
     <div><h4>Autonomy, competence, relatedness<span>self-determination theory</span></h4><p><b>The child chooses between three open quests</b> (autonomy), <b>watches their own growth curve move</b> (competence), and <b>is paired with a guide and a peer circle</b> (relatedness). These are the three retention levers, and they are explicit in the schema.</p></div>
     <div><h4>Universal design for learning<span>CAST UDL 2.2</span></h4><p><b>Icon-first navigation, audio instructions on every screen, no step that requires reading.</b> Large touch targets, high-contrast mode, one-handed phone layout, full keyboard and screen-reader paths.</p></div>
     <div><h4>Learning Stories, not grades<span>Carr &amp; Lee</span></h4><p><b>Progress is a narrative record co-authored by the child, the teacher and the guardian</b> against a longitudinal archive of real work — the opposite of a term-end number.</p></div>
@@ -656,6 +656,8 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     </table>
   </div>
 
+  <div class="note info" style="margin-bottom:16px"><b>Interface language and analysis language are two different things, and the proposal should say so plainly.</b> The <b>interface</b> ships in four — English, Luganda, Kiswahili and Kinyarwanda — because translating 85 strings and recording audio instruction is cheap and directly serves the culturally sustaining commitment. The <b>analysis</b> pipeline is scoped to one: Tier 1 is language-independent and works for any language a child speaks, while Tiers 2 and 3 are built and evaluated for <b>Luganda only</b>, matching the Kampala deployment. No part of this project claims four-language speech recognition.</div>
+
   <p style="font-size:14.6px;color:var(--ink-soft);margin-bottom:14px">Tier 2 is the design decision worth defending. The system does not need a verbatim transcript — it needs to know whether causal and temporal connectives appear, because that is precisely the Stage 2 signal where narrative causality replaces mere sequence. Closed-vocabulary keyword spotting is far cheaper than open-vocabulary recognition and fits on the phone.</p>
 
   <div class="card" style="border-left:4px solid var(--sisal);margin-bottom:16px">
@@ -667,6 +669,7 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
       <li><b>wav2vec2-luganda</b> — XLSR-53 fine-tuned on Common Voice Luganda, available now</li>
       <li><b>Common Voice Luganda</b>, built through Makerere AI Lab's crowdsourcing push, plus the community models from the Mozilla–Zindi Luganda ASR challenge</li>
     </ul>
+    <p style="font-size:14.3px;color:var(--ink-soft);margin-top:11px"><b>Worth noting for future work:</b> Kinyarwanda is the best-resourced of the four interface languages by a wide margin — Common Voice holds over 2,000 hours of transcribed Kinyarwanda, second only to English across the whole project, gathered by Digital Umuganda in Kigali. Should the work ever extend to Rwanda, Tier 3 would be considerably easier there than it is for Luganda.</p>
     <p style="font-size:14.3px;color:var(--ink-soft);margin-top:11px"><b>Makerere AI Lab and Sunbird AI are both in Kampala, as are both deployment sites.</b> A named local partnership on the language model is realistic, and reads in the proposal as institutional grounding rather than dependence on a foreign API. Check the current state of each before writing up — both ship regularly.</p>
   </div>
 
@@ -771,7 +774,7 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
         <tr><td><b>Geographic</b></td><td>Two partner institutions in <b>Kampala, Uganda</b> — one community and faith-based preparatory school and one residential child-care centre, both low-resource, with intermittent connectivity and shared rather than per-child devices</td><td>National rollout; any deployment outside Kampala; multi-country work</td></tr>
         <tr><td><b>Population</b></td><td>60–120 learners aged 8–18 across the four stage bands; 6 educators and administrators; 8 women from the existing cooperative as Atelier Guides</td><td>Under-8s; out-of-school youth; mainstream well-resourced schools</td></tr>
         <tr><td><b>Time</b></td><td>10-month development cycle with a 12-week supervised field deployment</td><td>Multi-year longitudinal validation (named as future work)</td></tr>
-        <tr><td><b>Technical</b></td><td>Offline-first PWA on React 18 + Vite + TypeScript; Node/Express and Sequelize; Supabase Postgres and Storage; tiered on-device inference; interface in <b>English, Luganda and Kiswahili</b> with recorded audio instruction</td><td>Native iOS and Android builds; real-time video; blockchain credentialing; automated clinical diagnosis; <b>full open-vocabulary Luganda transcription on-device</b> (named as future work)</td></tr>
+        <tr><td><b>Technical</b></td><td>Offline-first PWA on React 18 + Vite + TypeScript; Node/Express and Sequelize; Supabase Postgres and Storage; tiered on-device inference; interface in <b>English, Luganda, Kiswahili and Kinyarwanda</b> with recorded audio instruction</td><td>Native iOS and Android builds; real-time video; blockchain credentialing; automated clinical diagnosis; <b>full open-vocabulary Luganda transcription on-device</b>; <b>speech analysis in any language other than Luganda</b> — the other three are interface locales only (all named as future work)</td></tr>
         <tr><td><b>Devices</b></td><td>Android 9+ Chrome on 2&nbsp;GB RAM; staffroom Windows laptops; one shared device per 5–8 learners</td><td>Per-child device provision; tablet procurement</td></tr>
         <tr><td><b>Assessment</b></td><td>Screening and early warning, teacher-confirmed, advisory only</td><td>Clinical diagnosis; any automated referral without a human decision</td></tr>
         <tr><td><b>Commerce</b></td><td>A pilot Atelier run — a limited number of designs produced and sold through existing donation rails, with a recorded revenue split</td><td>Full e-commerce; payment processing at scale; export logistics</td></tr>
@@ -865,6 +868,7 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <li>Makerere Artificial Intelligence Research Lab. (2022). <i>The Makerere radio speech corpus: A Luganda radio corpus for automatic speech recognition.</i> arXiv:2206.09790.</li>
     <li>Sunbird AI. (latest). <i>SALT: Sunbird African Language Technology dataset and models.</i> https://github.com/SunbirdAI/salt</li>
     <li>Babirye, C., et al. (2024). <i>Building a Luganda text-to-speech model from crowdsourced data.</i> arXiv:2405.10211.</li>
+    <li>Mozilla Foundation &amp; Digital Umuganda. (latest). <i>Common Voice Kinyarwanda corpus and open-source voice models.</i> Mozilla Common Voice.</li>
   </ol>
   <p style="font-size:14px;color:var(--ink-soft);margin-top:18px">Add to these, for the legal and safeguarding sections: the <b>UN Convention on the Rights of the Child (1989)</b>, particularly Articles 12, 13 and 31, and the <b>Uganda Data Protection and Privacy Act 2019</b> with its 2021 Regulations, which governs both deployment sites.</p>
 </section>
@@ -877,7 +881,7 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <table>
       <thead><tr><th style="width:13%">Months</th><th style="width:26%">Phase</th><th>Ships</th></tr></thead>
       <tbody>
-        <tr><td class="num"><b>1–2</b></td><td>Foundations and consent</td><td><b>CRA to Vite migration and TypeScript set up</b>, child account and PIN auth, guardian consent ledger, new models and migration, Supabase Storage bucket and policies, role routing, <b>Luganda locale and recorded audio instruction</b>, ethics approval submitted</td></tr>
+        <tr><td class="num"><b>1–2</b></td><td>Foundations and consent</td><td><b>CRA to Vite migration and TypeScript set up</b>, child account and PIN auth, guardian consent ledger, new models and migration, Supabase Storage bucket and policies, role routing, <b>Luganda, Kiswahili and Kinyarwanda locales with recorded audio instruction</b>, ethics approval submitted</td></tr>
         <tr><td class="num"><b>2–4</b></td><td>The Studio</td><td>Canvas with pressure and undo, MediaRecorder story booth, photo capture of paper work, audio-led icon-first navigation in three languages</td></tr>
         <tr><td class="num"><b>4–5</b></td><td>Offline core</td><td>Service worker, IndexedDB outbox, batch sync endpoint, idempotency and conflict policy, install prompt — a full session with the radio off</td></tr>
         <tr><td class="num"><b>5–6</b></td><td>Scoring pipeline</td><td>Explainable feature extraction first, then the quantised vision model in a Web Worker; Tier 1 acoustic and Tier 2 Luganda keyword spotting on-device, Tier 3 transcription wired as a deferred server job; local norming begun</td></tr>
