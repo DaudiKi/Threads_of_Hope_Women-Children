@@ -241,6 +241,8 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <div><dt>Global Challenge</dt><dd>Education</dd></div>
     <div><dt>Global Opportunity</dt><dd>Arts, Design &amp; Culture</dd></div>
     <div><dt>Age band</dt><dd class="num">8 – 18 years</dd></div>
+    <div><dt>Setting</dt><dd>Kampala, Uganda</dd></div>
+    <div><dt>Languages</dt><dd>English · Luganda · Kiswahili</dd></div>
     <div><dt>Artifact</dt><dd>Offline-first PWA</dd></div>
     <div><dt>Front end</dt><dd>React 18 · Vite · TypeScript</dd></div>
     <div><dt>Back end</dt><dd>Node/Express · Sequelize</dd></div>
@@ -293,7 +295,7 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <div class="engine-in">
       <h4>The child makes</h4>
       <p><b>One drawing</b> — on the canvas, or photographed from paper with the classroom phone.</p>
-      <p><b>One spoken story</b> — 30 to 90 seconds, in English, Kiswahili or French, about the thing they drew.</p>
+      <p><b>One spoken story</b> — 30 to 90 seconds, in Luganda, English or Kiswahili, about the thing they drew.</p>
       <p style="font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;opacity:.8;padding-top:4px">NO READING REQUIRED · NO INTERNET REQUIRED</p>
     </div>
     <div class="engine-arrow" aria-hidden="true">→</div>
@@ -320,7 +322,7 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <div><h4>Mastery, not age-grading<span>competency-based progression</span></h4><p><b>A fourteen-year-old who lost four years of school starts at the stage their work places them in</b> and moves at their own pace. Attainment states are <i>not yet · emerging · secure · mastery</i>. There is no failure state anywhere in the data model.</p></div>
     <div><h4>Invisible, formative assessment<span>assessment as learning</span></h4><p><b>The assessment is the artwork.</b> No timed tests, no exam room, no literacy requirement. A child who has never sat a written paper still generates a complete developmental profile by drawing their grandmother.</p></div>
     <div><h4>Trauma-informed by construction<span>strengths-based practice</span></h4><p><b>Strengths-first language, no red fail states, no public leaderboards.</b> Safeguarding indicators are never shown to the child, never shown to peers, and never auto-escalate — they open a private triage card for a named, trained adult.</p></div>
-    <div><h4>Culturally sustaining content<span>Paris &amp; Alim</span></h4><p><b>Briefs are built from kitenge and kanga motif systems, local proverbs, folktales and family oral history</b> — not translated Western worksheets. The platform's existing English, Kiswahili and French locales carry it, with audio instruction for non-readers.</p></div>
+    <div><h4>Culturally sustaining content<span>Paris &amp; Alim</span></h4><p><b>Briefs are built from Baganda motif and barkcloth traditions, kitenge pattern systems, Luganda proverbs and folktales, and family oral history</b> — not translated Western worksheets. Luganda is a first-class interface language beside English and Kiswahili, with recorded audio instruction on every screen for non-readers.</p></div>
     <div><h4>Autonomy, competence, relatedness<span>self-determination theory</span></h4><p><b>The child chooses between three open quests</b> (autonomy), <b>watches their own growth curve move</b> (competence), and <b>is paired with a guide and a peer circle</b> (relatedness). These are the three retention levers, and they are explicit in the schema.</p></div>
     <div><h4>Universal design for learning<span>CAST UDL 2.2</span></h4><p><b>Icon-first navigation, audio instructions on every screen, no step that requires reading.</b> Large touch targets, high-contrast mode, one-handed phone layout, full keyboard and screen-reader paths.</p></div>
     <div><h4>Learning Stories, not grades<span>Carr &amp; Lee</span></h4><p><b>Progress is a narrative record co-authored by the child, the teacher and the guardian</b> against a longitudinal archive of real work — the opposite of a term-end number.</p></div>
@@ -631,14 +633,46 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
       <ul style="margin:0;padding-left:1.15em;font-size:14.3px;color:var(--ink-soft);display:grid;gap:7px">
         <li><b>Explainable features first</b> — stroke count, path length, curvature variance, closure rate, ink coverage, symmetry, bounding-box ratio, computed in plain JavaScript. These work with no model at all and give the project a defensible floor.</li>
         <li><b>Quantised vision model</b> — a MobileNet-class backbone with regression heads, run through ONNX Runtime Web (WASM + SIMD) in a Web Worker so the canvas never stutters. Vite resolves the <code>.wasm</code> assets and the module worker without config surgery.</li>
-        <li><b>Audio features</b> — Web Audio <code>AnalyserNode</code> for cadence, pause ratio and pitch variance; optional on-device transcription for lexical diversity</li>
+        <li><b>Audio features</b> — Web Audio <code>AnalyserNode</code> for speech rate, pause ratio, phonation-time ratio and pitch variance. Language-independent, so they work for Luganda from day one. See the tiered pipeline below.</li>
         <li><b>Budget</b> — under three seconds per submission on a 2&nbsp;GB Android, models under 15&nbsp;MB total</li>
         <li><b>Human-in-the-loop</b> — every signal is advisory, every alert is confirmed by a trained adult, and no score is ever shown to a child as a grade</li>
       </ul>
     </div>
   </div>
 
-  <div class="note" style="margin-top:16px"><b>Two limitations to state honestly in Chapter One, because an examiner will find them.</b> First, low-resource-language speech recognition is weak: Kiswahili is workable, Luganda and Sheng much less so, which is why the audio pipeline is designed around acoustic features plus optional teacher-confirmed transcription rather than depending on automatic transcription. Second, a drawing-based developmental index built on Western norming samples carries real bias risk — so the project must include a local norming exercise and a documented bias audit across gender, age and disability status, and must never present a score as a clinical diagnosis.</div>
+  <hr class="thread">
+
+  <h3 style="font-size:1.12rem;margin-bottom:6px">The Luganda audio pipeline</h3>
+  <p style="font-size:14.6px;color:var(--ink-soft);margin-bottom:16px">Both deployment sites are in Kampala, so Luganda is the language most of these children actually tell stories in. Rather than treat that as a limitation, the pipeline is tiered so that the parts which need no transcription work immediately, and only the one index that genuinely needs words depends on a speech model.</p>
+
+  <div class="scroller" style="margin-bottom:16px">
+    <table>
+      <thead><tr><th style="width:7%">Tier</th><th style="width:30%">What it produces</th><th style="width:22%">Needs transcription?</th><th>Runs where</th></tr></thead>
+      <tbody>
+        <tr><td><b>1</b></td><td><b>Acoustic</b> — speech rate, pause ratio and distribution, phonation-time ratio, pitch range, energy dynamics → fluency and expressive range</td><td><b>No.</b> Language-independent</td><td>On-device, immediately, for any language a child speaks</td></tr>
+        <tr><td><b>2</b></td><td><b>Keyword spotting</b> over a closed set of roughly 50–100 Luganda narrative connectives — <i>kuba</i>, <i>awo</i>, <i>olwo</i>, <i>naye</i> — detecting causal and temporal markers → narrative structure</td><td><b>No open-vocabulary ASR.</b> A small keyword-spotting model</td><td>On-device, inside the 15&nbsp;MB model budget</td></tr>
+        <tr><td><b>3</b></td><td><b>Full transcription</b> → lexical diversity and vocabulary growth</td><td><b>Yes</b></td><td><b>Server-side, deferred until sync.</b> Transcription is never needed in real time, so the offline guarantee is untouched</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p style="font-size:14.6px;color:var(--ink-soft);margin-bottom:14px">Tier 2 is the design decision worth defending. The system does not need a verbatim transcript — it needs to know whether causal and temporal connectives appear, because that is precisely the Stage 2 signal where narrative causality replaces mere sequence. Closed-vocabulary keyword spotting is far cheaper than open-vocabulary recognition and fits on the phone.</p>
+
+  <div class="card" style="border-left:4px solid var(--sisal);margin-bottom:16px">
+    <h4 style="font-size:1.02rem;margin:0 0 8px;color:var(--sisal)">Luganda is better resourced than most African languages — and the work is in Kampala</h4>
+    <ul style="margin:0;padding-left:1.15em;font-size:14.3px;color:var(--ink-soft);display:grid;gap:6px">
+      <li><b>Makerere Radio Speech Corpus</b> — 155 hours of Luganda radio speech, the first publicly available radio dataset in sub-Saharan Africa, with baseline ASR results</li>
+      <li><b>Sunbird AI SALT</b> — 25,000 parallel sentences across English, Luganda, Lugbara, Acholi, Runyankole, Ateso and Kiswahili, roughly 5,000 recorded for both ASR and TTS; open source</li>
+      <li><b>asr-whisper-large-v3-salt</b> — Whisper Large v3 adapted to Luganda and ten other Ugandan and regional languages, which matters because stock Whisper does not cover Luganda at all</li>
+      <li><b>wav2vec2-luganda</b> — XLSR-53 fine-tuned on Common Voice Luganda, available now</li>
+      <li><b>Common Voice Luganda</b>, built through Makerere AI Lab's crowdsourcing push, plus the community models from the Mozilla–Zindi Luganda ASR challenge</li>
+    </ul>
+    <p style="font-size:14.3px;color:var(--ink-soft);margin-top:11px"><b>Makerere AI Lab and Sunbird AI are both in Kampala, as are both deployment sites.</b> A named local partnership on the language model is realistic, and reads in the proposal as institutional grounding rather than dependence on a foreign API. Check the current state of each before writing up — both ship regularly.</p>
+  </div>
+
+  <div class="note"><b>Three limitations to state honestly in Chapter One, because an examiner will find them.</b> First, every Luganda corpus listed above is <b>adult</b> speech — radio broadcasts, read sentences, studio recordings. Child spontaneous speech is higher-pitched, more disfluent and differently worded, and recognition trained on adults degrades badly on eight-year-olds; this is why Tier 3 is scoped as deferred and assisted rather than assumed. Second, a drawing-based developmental index built on Western norming samples carries real bias risk, so the project must include a local norming exercise and a documented bias audit across gender, age and disability status, and must never present a score as a clinical diagnosis. Third, all scoring is advisory: the strongest comparison in this design is a child against their own trajectory, which sidesteps cross-language norming entirely.</div>
+
+  <div class="note good" style="margin-top:16px"><b>The gap is also the contribution.</b> The teacher-confirmation step produces gold-labelled <b>Luganda child speech</b> — a resource that does not appear to exist. Across a 12-week deployment with 120 children submitting weekly, that is a corpus of real size. Released consented and anonymised, it turns the project's sharpest stated limitation into a citable research output alongside the software, and gives the write-up a second contribution to claim.</div>
 </section>
 
 <!-- ============ 07 CHAPTER ONE ============ -->
@@ -658,9 +692,9 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
         <tr><td>Sub-Saharan Africa holds the largest out-of-school population of any region</td><td>UNESCO Institute for Statistics; GEM Report</td><td><span class="tag t-och">verify figure</span></td></tr>
         <tr><td>Roughly 250 million children under 5 in low- and middle-income countries are at risk of not reaching their developmental potential</td><td>Black et al., <i>The Lancet</i> ECD Series (2017)</td><td><span class="tag t-sis">well established</span></td></tr>
         <tr><td>Most developmental disability in low-income settings is never formally identified before school failure</td><td>WHO / UNICEF disability and ECD reporting</td><td><span class="tag t-och">verify wording</span></td></tr>
-        <tr><td>Pupil–teacher ratios in low-cost urban schools make individual screening impossible</td><td>UNESCO UIS; national basic-education statistics for your country</td><td><span class="tag t-och">get local figure</span></td></tr>
+        <tr><td>Pupil–teacher ratios in low-cost urban schools make individual screening impossible</td><td>UNESCO UIS; Uganda Ministry of Education and Sports education statistical abstract</td><td><span class="tag t-och">get Uganda figure</span></td></tr>
         <tr><td>A minority of the African population uses the internet; connectivity is intermittent and mobile-only</td><td>ITU, <i>Facts and Figures</i>; GSMA, <i>Mobile Economy Sub-Saharan Africa</i></td><td><span class="tag t-och">verify figure</span></td></tr>
-        <tr><td>A large share of children experience violence before 18, often undisclosed</td><td>Violence Against Children Surveys (Kenya / Uganda)</td><td><span class="tag t-och">get country figure</span></td></tr>
+        <tr><td>A large share of children experience violence before 18, often undisclosed</td><td>Uganda Violence Against Children Survey (UBOS / MGLSD)</td><td><span class="tag t-och">get Uganda figure</span></td></tr>
         <tr><td>Arts education shows measurable transfer to motor, spatial and language development</td><td>Winner, Goldstein &amp; Vincent-Lancrin, OECD (2013)</td><td><span class="tag t-sis">well established</span></td></tr>
       </tbody>
     </table>
@@ -689,8 +723,8 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <div class="smart"><span><b>S</b> Studio + child auth</span><span><b>M</b> 60 learners, task completion unaided</span><span><b>A</b> extends existing React stack</span><span><b>R</b> removes the literacy barrier</span><span><b>T</b> 4 months</span></div>
   </div>
   <div class="obj">
-    <div class="obj-h"><span class="id">SO2</span><p>Develop an on-device multimodal scoring pipeline producing at least six developmental indices per submission, returning a result in under 3 seconds on a 2&nbsp;GB-RAM Android device with no network connection, by month 6.</p></div>
-    <div class="smart"><span><b>S</b> 6 indices, on-device</span><span><b>M</b> &lt;3s, 2GB device, offline</span><span><b>A</b> ONNX Runtime Web + Web Worker</span><span><b>R</b> no psychologist, no connection</span><span><b>T</b> month 6</span></div>
+    <div class="obj-h"><span class="id">SO2</span><p>Develop a tiered on-device multimodal scoring pipeline producing at least six developmental indices per submission — language-independent acoustic features and Luganda narrative-connective keyword spotting on-device, full transcription deferred to sync — returning an on-device result in under 3 seconds on a 2&nbsp;GB-RAM Android device with no network connection, by month 6.</p></div>
+    <div class="smart"><span><b>S</b> 6 indices, tiered, on-device</span><span><b>M</b> &lt;3s, 2GB device, offline</span><span><b>A</b> ONNX Runtime Web + Web Worker</span><span><b>R</b> works in the language children speak</span><span><b>T</b> month 6</span></div>
   </div>
   <div class="obj">
     <div class="obj-h"><span class="id">SO3</span><p>Build a four-stage, four-strand Arts, Design &amp; Culture competency framework spanning ages 8 to 18, encoded as a machine-readable graph, and validate its stage descriptors with at least 6 educators and 2 subject specialists before field deployment.</p></div>
@@ -717,11 +751,12 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
       <thead><tr><th style="width:9%">#</th><th>Question</th><th style="width:13%">Maps to</th></tr></thead>
       <tbody>
         <tr><td><b>RQ1</b></td><td>To what extent can children aged 8–18 with limited or no literacy complete an unassisted creative submission — drawing plus recorded story — in a browser-based studio on a shared low-cost device?</td><td>SO1</td></tr>
-        <tr><td><b>RQ2</b></td><td>How accurately do on-device visual and acoustic features extracted from children's drawings and oral narratives correspond to established developmental indicators assessed by a trained practitioner?</td><td>SO2</td></tr>
+        <tr><td><b>RQ2</b></td><td>How accurately do on-device visual and language-independent acoustic features extracted from children's drawings and oral narratives correspond to established developmental indicators assessed by a trained practitioner?</td><td>SO2</td></tr>
         <tr><td><b>RQ3</b></td><td>What four-stage Arts, Design &amp; Culture competency progression do educators and specialists validate as both developmentally appropriate and economically relevant for learners aged 8 to 18 in this setting?</td><td>SO3</td></tr>
         <tr><td><b>RQ4</b></td><td>What offline-first architecture allows a full classroom session to be completed and later reconciled without data loss under the connectivity and device constraints of low-resource urban schools?</td><td>SO4</td></tr>
         <tr><td><b>RQ5</b></td><td>How does continuous creative-work screening change the time educators spend identifying developmental concerns, and how early are concerns surfaced relative to current practice?</td><td>SO5</td></tr>
         <tr><td><b>RQ6</b></td><td>What portfolio artefact, assembled across the 8–18 period, do local art schools, apprenticeship programmes and creative employers recognise as credible evidence of capability?</td><td>SO6</td></tr>
+        <tr><td><b>RQ7</b></td><td>Can closed-vocabulary keyword spotting over Luganda narrative connectives recover narrative-structure signal in children's spoken stories without open-vocabulary speech recognition, and how does it compare to transcription by a fluent adult listener?</td><td>SO2</td></tr>
       </tbody>
     </table>
   </div>
@@ -733,10 +768,10 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <table>
       <thead><tr><th style="width:20%">Boundary</th><th style="width:44%">In scope</th><th>Out of scope</th></tr></thead>
       <tbody>
-        <tr><td><b>Geographic</b></td><td>Two partner institutions — All Nations Christian Care Preparatory School and Watoto Child Care — in a single urban locality</td><td>National rollout; multi-country deployment</td></tr>
+        <tr><td><b>Geographic</b></td><td>Two partner institutions in <b>Kampala, Uganda</b> — All Nations Christian Care Preparatory School and Watoto Child Care</td><td>National rollout; any deployment outside Kampala; multi-country work</td></tr>
         <tr><td><b>Population</b></td><td>60–120 learners aged 8–18 across the four stage bands; 6 educators and administrators; 8 women from the existing cooperative as Atelier Guides</td><td>Under-8s; out-of-school youth; mainstream well-resourced schools</td></tr>
         <tr><td><b>Time</b></td><td>10-month development cycle with a 12-week supervised field deployment</td><td>Multi-year longitudinal validation (named as future work)</td></tr>
-        <tr><td><b>Technical</b></td><td>Offline-first PWA on React 18 + Vite + TypeScript; Node/Express and Sequelize; Supabase Postgres and Storage; on-device inference; English, Kiswahili and French</td><td>Native iOS and Android builds; real-time video; blockchain credentialing; automated clinical diagnosis</td></tr>
+        <tr><td><b>Technical</b></td><td>Offline-first PWA on React 18 + Vite + TypeScript; Node/Express and Sequelize; Supabase Postgres and Storage; tiered on-device inference; interface in <b>English, Luganda and Kiswahili</b> with recorded audio instruction</td><td>Native iOS and Android builds; real-time video; blockchain credentialing; automated clinical diagnosis; <b>full open-vocabulary Luganda transcription on-device</b> (named as future work)</td></tr>
         <tr><td><b>Devices</b></td><td>Android 9+ Chrome on 2&nbsp;GB RAM; staffroom Windows laptops; one shared device per 5–8 learners</td><td>Per-child device provision; tablet procurement</td></tr>
         <tr><td><b>Assessment</b></td><td>Screening and early warning, teacher-confirmed, advisory only</td><td>Clinical diagnosis; any automated referral without a human decision</td></tr>
         <tr><td><b>Commerce</b></td><td>A pilot Atelier run — a limited number of designs produced and sold through existing donation rails, with a recorded revenue split</td><td>Full e-commerce; payment processing at scale; export logistics</td></tr>
@@ -827,8 +862,11 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <li>GSMA. (latest). <i>The mobile economy Sub-Saharan Africa.</i> GSMA Intelligence.</li>
     <li>Biørn-Hansen, A., Majchrzak, T. A., &amp; Grønli, T.-M. (2017). Progressive web apps: The possible web-native unifier for mobile development. <i>Proceedings of WEBIST 2017</i>, 344–351.</li>
     <li>Smilkov, D., Thorat, N., Assogba, Y., et al. (2019). TensorFlow.js: Machine learning for the web and beyond. <i>Proceedings of MLSys 2019.</i></li>
+    <li>Makerere Artificial Intelligence Research Lab. (2022). <i>The Makerere radio speech corpus: A Luganda radio corpus for automatic speech recognition.</i> arXiv:2206.09790.</li>
+    <li>Sunbird AI. (latest). <i>SALT: Sunbird African Language Technology dataset and models.</i> https://github.com/SunbirdAI/salt</li>
+    <li>Babirye, C., et al. (2024). <i>Building a Luganda text-to-speech model from crowdsourced data.</i> arXiv:2405.10211.</li>
   </ol>
-  <p style="font-size:14px;color:var(--ink-soft);margin-top:18px">Add to these, for the legal and safeguarding sections: the <b>UN Convention on the Rights of the Child (1989)</b>, particularly Articles 12, 13 and 31, and the <b>data protection act of the country you deploy in</b> — the Kenya Data Protection Act No. 24 of 2019 or the Uganda Data Protection and Privacy Act 2019.</p>
+  <p style="font-size:14px;color:var(--ink-soft);margin-top:18px">Add to these, for the legal and safeguarding sections: the <b>UN Convention on the Rights of the Child (1989)</b>, particularly Articles 12, 13 and 31, and the <b>Uganda Data Protection and Privacy Act 2019</b> with its 2021 Regulations, which governs both deployment sites.</p>
 </section>
 
 <!-- ============ 11 ROADMAP ============ -->
@@ -839,10 +877,10 @@ hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
     <table>
       <thead><tr><th style="width:13%">Months</th><th style="width:26%">Phase</th><th>Ships</th></tr></thead>
       <tbody>
-        <tr><td class="num"><b>1–2</b></td><td>Foundations and consent</td><td><b>CRA to Vite migration and TypeScript set up</b>, child account and PIN auth, guardian consent ledger, new models and migration, Supabase Storage bucket and policies, role routing, ethics approval submitted</td></tr>
+        <tr><td class="num"><b>1–2</b></td><td>Foundations and consent</td><td><b>CRA to Vite migration and TypeScript set up</b>, child account and PIN auth, guardian consent ledger, new models and migration, Supabase Storage bucket and policies, role routing, <b>Luganda locale and recorded audio instruction</b>, ethics approval submitted</td></tr>
         <tr><td class="num"><b>2–4</b></td><td>The Studio</td><td>Canvas with pressure and undo, MediaRecorder story booth, photo capture of paper work, audio-led icon-first navigation in three languages</td></tr>
         <tr><td class="num"><b>4–5</b></td><td>Offline core</td><td>Service worker, IndexedDB outbox, batch sync endpoint, idempotency and conflict policy, install prompt — a full session with the radio off</td></tr>
-        <tr><td class="num"><b>5–6</b></td><td>Scoring pipeline</td><td>Explainable feature extraction first, then the quantised vision model in a Web Worker; acoustic features; local norming begun</td></tr>
+        <tr><td class="num"><b>5–6</b></td><td>Scoring pipeline</td><td>Explainable feature extraction first, then the quantised vision model in a Web Worker; Tier 1 acoustic and Tier 2 Luganda keyword spotting on-device, Tier 3 transcription wired as a deferred server job; local norming begun</td></tr>
         <tr><td class="num"><b>5–7</b></td><td>Ladder and quests</td><td>Competency graph seeded, educator and specialist validation, adaptive quest assignment, attainment states and evidence links</td></tr>
         <tr><td class="num"><b>6–7</b></td><td>Teacher console</td><td>Cohort heatmap, growth radar, early-warning triage with human confirmation, batch review</td></tr>
         <tr><td class="num"><b>7–8</b></td><td>Thread and Atelier</td><td>Golden Thread portfolio, export, revocable share link, Atelier Guide view, pilot production run and revenue split</td></tr>
