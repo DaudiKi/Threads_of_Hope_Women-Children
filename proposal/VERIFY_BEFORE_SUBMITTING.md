@@ -63,6 +63,27 @@ cost marks:
    paragraphs of 1.6 now lead with their stakeholder group.
 4. **1.6 paragraphs ran to four lines**; the brief caps them at two to three. Tightened.
 
+## Second audit: blueprint coverage
+
+Checked the proposal against the Loom blueprint. Eleven core concepts and all six
+mission-statement elements were present. Three gaps were found and closed:
+
+5. **Holistic mentorship** is named in the mission statement but had no objective and
+   no research question behind it, which the Alignment criterion ("all sections align")
+   would have exposed. Now grounded in the 1.1 pedagogy discussion via Vygotskian
+   scaffolding, with SO7 and RQ8 added.
+6. **The system was unnamed.** It is now introduced as Loom, with the learner archive
+   named the Golden Thread portfolio.
+7. **The production and revenue pathway** (learner designs manufactured by the women's
+   cooperative) is in the blueprint but absent from the proposal. Rather than widen the
+   scope, it is now named in 1.5 as a deliberate exclusion requiring separate ethical
+   review, which is the defensible position.
+
+Deliberately left out of Chapter One, because they belong in later chapters: the full
+four-stage skills ladder detail, the fourteen data models, the API surface, and the
+ten-month build roadmap. Chapter One states that the framework has four stages and four
+strands (SO3); describing each stage is design-chapter work.
+
 ## What is already compliant
 
 - APA 7: title page, double spacing throughout, 1-inch margins, 0.5" first-line indent on
