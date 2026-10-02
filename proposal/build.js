@@ -80,7 +80,13 @@ h1("Chapter One: Introduction"),
 
 h2("1.1 Introduction and Background"),
 
-p("The use of digital technology to support teaching, learning, and assessment has expanded rapidly across education systems worldwide. In low-resource settings, however, the tools that reach classrooms are seldom designed for the conditions those classrooms actually face. This study examines how an offline-first web application can use children’s drawings and spoken narratives—forms of expression that require neither literacy nor an internet connection—to support developmental screening and structured creative skills progression among vulnerable children aged 8 to 18 in community and faith-based schools in Kampala, Uganda. The section that follows provides the background to this investigation."),
+p("The use of digital technology to support teaching, learning, and assessment has expanded rapidly across education systems worldwide. In low-resource settings, however, the tools that reach classrooms are seldom designed for the conditions those classrooms actually face. This study addresses that mismatch for a specific population in a specific setting."),
+
+h3("1.1.1 Thesis Statement"),
+
+p("This study examines how an offline-first web application can use children\u2019s drawings and spoken narratives\u2014forms of expression that require neither literacy nor an internet connection\u2014to support developmental screening and structured creative skills progression among vulnerable children aged 8 to 18 in community and faith-based schools in Kampala, Uganda."),
+
+h3("1.1.2 Background of the Study"),
 
 p("Technological change has reshaped how educational institutions deliver instruction, manage records, and assess learning. Over the past two decades, digital systems and data-driven platforms have been adopted across both public and private sectors to improve efficiency and widen access. Within education, this trend has given rise to Educational Technology (EdTech), which refers to the use of digital tools and software to support instructional and administrative processes. Examples include learning management systems, digital assessment platforms, and school information systems. EdTech has attracted sustained attention for its potential to improve learning outcomes, widen participation, and support evidence-based decision-making by teachers and administrators (Means et al., 2013). More recent analysis has cautioned, however, that the benefits of educational technology are unevenly distributed and depend heavily on whether a given tool matches the infrastructural and pedagogical realities of the setting into which it is introduced (UNESCO, 2023)."),
 
