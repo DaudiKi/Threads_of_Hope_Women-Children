@@ -1,5 +1,5 @@
 const docx = require('docx');
-const { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, PageNumber,
+const { Document, Packer, Paragraph, TextRun, Tab, HeadingLevel, AlignmentType, PageNumber,
         Header, Footer, LevelFormat, convertInchesToTwip } = docx;
 const fs = require('fs');
 
@@ -41,7 +41,8 @@ const h3 = (text) => new Paragraph({
 
 // numbered/lettered list item, hanging
 const li = (label, ...runs) => new Paragraph({
-  children: [t(label + "\u0009"), ...runs.map(r => typeof r === "string" ? t(r) : r)],
+  children: [t(label), new TextRun({ children: [new Tab()], font: BODY, size: 24 }),
+             ...runs.map(r => typeof r === "string" ? t(r) : r)],
   spacing: DBL,
   indent: { left: convertInchesToTwip(1.0), hanging: convertInchesToTwip(0.5) },
 });
@@ -67,7 +68,7 @@ const titlePage = [
   new Paragraph({ children: [t("African Leadership University")], spacing: DBL, alignment: AlignmentType.CENTER }),
   new Paragraph({ children: [t("BSE: Software Engineering — Full-Stack Web Development")], spacing: DBL, alignment: AlignmentType.CENTER }),
   new Paragraph({ children: [t("Unit Two Assignment: Project Draft")], spacing: DBL, alignment: AlignmentType.CENTER }),
-  new Paragraph({ children: [t("[Instructor name]")], spacing: DBL, alignment: AlignmentType.CENTER }),
+  new Paragraph({ children: [t("Herve Musangwa")], spacing: DBL, alignment: AlignmentType.CENTER }),
   new Paragraph({ children: [t("October 2, 2026")], spacing: DBL, alignment: AlignmentType.CENTER,
     pageBreakBefore: false }),
   new Paragraph({ children: [new docx.PageBreak()] }),
@@ -261,6 +262,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(b => {
-  fs.writeFileSync("Ojiambo_Unit Two Assignment.docx", b);
+  fs.writeFileSync("Karabo_Ojiambo_Unit_Two_Assignment.docx", b);
   console.log("written:", b.length, "bytes");
 });

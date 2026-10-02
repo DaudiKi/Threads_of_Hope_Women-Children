@@ -1,12 +1,23 @@
 # Before submitting
 
-## Still yours to fill in
+## Nothing left to fill in
 
-- **Instructor name** on the title page — the only remaining placeholder, currently
-  `[Instructor name]`. Replace it in Word, or tell Claude the name.
+The title page is complete: Karabo Ojiambo, African Leadership University, Herve Musangwa,
+October 2, 2026. Every reference and statistic is verified. The file is ready to upload.
 
-The submission date is set to **October 2, 2026**. Everything else is verified and needs
-no action.
+### If you edit it again, check two things afterwards
+
+An earlier edited copy came back with two defects introduced by the editing round-trip:
+
+1. The instructor name was merged onto the previous line, reading
+   `Unit Two Assignment: Project DraftHerve Musangwa`.
+2. **Every tab stop after SO1–SO7 and RQ1–RQ8 was stripped**, so the objectives and
+   research questions ran together as `SO1.To design…`.
+
+Both are now fixed, and the list tabs are built as proper `<w:tab/>` elements rather than
+raw tab characters, which survive a save-and-reopen far better. If you open and re-save the
+file in anything other than Word, glance at the title page and at the SO/RQ lists before
+uploading.
 
 ---
 
