@@ -48,6 +48,21 @@ mission document agree before you submit.
 - Confirm the submission date
 - Confirm the surname spelling on the title page and in the filename (see note below)
 
+## Audit result (checked against the brief and the rubric)
+
+All 21 structural checks pass. The audit found and fixed four gaps that would have
+cost marks:
+
+1. **The mission statement was never stated.** The rubric names it in four of nine
+   criteria (Background, Problem Statement, Objectives, Alignment) worth 17 of 40
+   points. It is now stated in 1.1 and referenced in 1.2, 1.3 and 1.6.
+2. **The Global Challenge was never named.** Education is now named explicitly, along
+   with the fourteen Global Challenges and the Global Opportunity of Arts, Design and
+   Culture.
+3. **Stakeholders were not identified**, which Significance requires by name. All three
+   paragraphs of 1.6 now lead with their stakeholder group.
+4. **1.6 paragraphs ran to four lines**; the brief caps them at two to three. Tightened.
+
 ## What is already compliant
 
 - APA 7: title page, double spacing throughout, 1-inch margins, 0.5" first-line indent on

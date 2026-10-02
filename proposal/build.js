@@ -105,6 +105,8 @@ p("Research and software development involving vulnerable children carry obligat
 
 p("Taken together, these conditions describe a specific and currently unmet need. Community and faith-based schools in Kampala serve children at elevated developmental risk, lack the staff and instruments to screen them, and operate on infrastructure that excludes the software products designed for better-resourced systems. At the same time, these children produce creative work—drawings and spoken stories—that developmental research establishes as a valid source of signal, and the web platform has matured to the point where that signal can be extracted locally, offline, on the devices these schools already possess. This study addresses the integration of these elements into a single system that screens, teaches, and accumulates a record the child ultimately owns."),
 
+p("This study is positioned within the mission statement guiding the wider project: to transform foundational education for vulnerable children by partnering with community and faith-based schools to integrate creative arts, design-based learning, and holistic mentorship, thereby empowering the next generation to break cycles of marginalisation. It addresses Education, one of the fourteen Global Challenges, by targeting the undetected early learning loss that precedes dropout rather than the dropout itself. It pursues that aim through the Global Opportunity of Arts, Design and Culture, treating creative drawing, visual design, and oral storytelling as the primary diagnostic and pedagogical medium for children whose literacy cannot be assumed."),
+
 // ---------- 1.2 ----------
 h2("1.2 Problem Statement"),
 
@@ -116,12 +118,12 @@ p("The second is standardised paper-based developmental and psychometric instrum
 
 p("A third and more recent category, consumer creative and learning applications, merits brief mention. Products in this group support drawing and guided learning activity but are cloud-first, English-first, and designed around a child with a personal device and a parent-managed account. They generate creative output without producing measurement, provide no educator view, and offer no safeguarding pathway or portable record."),
 
-p("The gap is therefore specific. No existing system is simultaneously offline-first, multimodal across visual and oral expression, longitudinal across the 8-to-18 period, and owned by the child rather than the institution. None converts the creative work these classrooms already produce into developmental signal, an adaptive curriculum, a safeguarding early warning, and a portable record of capability, on the low-cost shared devices these schools actually possess. This project addresses that gap."),
+p("The gap is therefore specific. No existing system is simultaneously offline-first, multimodal across visual and oral expression, longitudinal across the 8-to-18 period, and owned by the child rather than the institution. None converts the creative work these classrooms already produce into developmental signal, an adaptive curriculum, a safeguarding early warning, and a portable record of capability, on the low-cost shared devices these schools actually possess. Closing this gap is the direct operational expression of the mission statement\u2019s commitment to transforming foundational education for vulnerable children through creative arts and design-based learning, and it addresses the Education Global Challenge at its root: the undetected developmental divergence that precedes school failure, rather than the failure itself."),
 
 // ---------- 1.3 ----------
 h2("1.3 Project’s Main Objective"),
 
-p("To design, develop, and evaluate an offline-first progressive web application that uses children’s drawings, designs, and recorded oral narratives as both a continuous developmental screening instrument and an adaptive arts, design, and culture curriculum for learners aged 8 to 18 in low-resource Kampala schools, addressing the diagnostic, infrastructural, and continuity gaps identified in the problem statement, in order to surface developmental concerns while intervention remains effective and to equip each learner with a verified, exportable portfolio of creative capability by the age of eighteen."),
+p("To design, develop, and evaluate an offline-first progressive web application that uses children’s drawings, designs, and recorded oral narratives as both a continuous developmental screening instrument and an adaptive arts, design, and culture curriculum for learners aged 8 to 18 in low-resource Kampala schools, addressing the diagnostic, infrastructural, and continuity gaps identified in the problem statement, in order to surface developmental concerns while intervention remains effective and to equip each learner with a verified, exportable portfolio of creative capability by the age of eighteen, in direct service of the mission statement\u2019s commitment to empowering the next generation to break cycles of marginalisation."),
 
 h3("1.3.1 Specific Objectives"),
 
@@ -161,11 +163,11 @@ p("In terms of hardware, the target is Android 9 or later running Chrome on devi
 // ---------- 1.6 ----------
 h2("1.6 Significance and Justification"),
 
-p("Successful implementation would place developmental screening in schools that have never had access to it. An educator responsible for forty children would gain an evidence trail on each one, assembled from work those children already produce, and would learn of a motor delay or a widening withdrawal within weeks rather than at the point of repeated grade failure."),
+p("Upon successful implementation, educators and their pupils would gain developmental screening where none currently exists. A teacher responsible for forty would see a motor delay or a widening withdrawal within weeks, not at repeated grade failure."),
 
-p("For the learner, ten years of creative work would cease to evaporate and begin instead to accumulate. At eighteen, a young person would hold a verified portfolio, a named specialism, completed commissions, and a mentor reference: tradeable assets in a creative economy that represents one of the few growth sectors genuinely accessible to them."),
+p("For learners and guardians, ten years of creative work would compound rather than evaporate, equipping each young person at eighteen with the portfolio, specialism, and mentor reference needed to break the cycle of marginalisation the mission statement targets (Winner et al., 2013)."),
 
-p("For the wider field, the project would demonstrate that multimodal developmental assessment can execute entirely on-device, within a browser, offline, on hardware these institutions already own. This removes the subscription, the connection, and the visiting specialist that presently render such screening a privilege of well-resourced education systems."),
+p("For partner institutions, policymakers, and the wider sector, it would show multimodal screening running offline on hardware these schools already own, removing the subscription, connection, and specialist that make such screening a privilege and the Education Global Challenge persistent."),
 
 // ---------- REFERENCES ----------
 new Paragraph({ children: [new docx.PageBreak()] }),
