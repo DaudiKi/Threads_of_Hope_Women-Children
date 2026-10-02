@@ -2,10 +2,11 @@
 
 ## Still yours to fill in
 
-- **Instructor name** on the title page (currently `[Instructor name]`)
-- **Submission date** on the title page
+- **Instructor name** on the title page — the only remaining placeholder, currently
+  `[Instructor name]`. Replace it in Word, or tell Claude the name.
 
-Nothing else. Everything below is already verified and needs no action.
+The submission date is set to **October 2, 2026**. Everything else is verified and needs
+no action.
 
 ---
 

@@ -68,7 +68,7 @@ const titlePage = [
   new Paragraph({ children: [t("BSE: Software Engineering — Full-Stack Web Development")], spacing: DBL, alignment: AlignmentType.CENTER }),
   new Paragraph({ children: [t("Unit Two Assignment: Project Draft")], spacing: DBL, alignment: AlignmentType.CENTER }),
   new Paragraph({ children: [t("[Instructor name]")], spacing: DBL, alignment: AlignmentType.CENTER }),
-  new Paragraph({ children: [t("October 2, 2025")], spacing: DBL, alignment: AlignmentType.CENTER,
+  new Paragraph({ children: [t("October 2, 2026")], spacing: DBL, alignment: AlignmentType.CENTER,
     pageBreakBefore: false }),
   new Paragraph({ children: [new docx.PageBreak()] }),
 ];
