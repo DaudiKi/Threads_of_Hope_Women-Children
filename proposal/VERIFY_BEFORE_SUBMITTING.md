@@ -43,22 +43,21 @@ The Background now carries nine distinct statistics, which is what the brief ask
 
 ---
 
-## Two things I could not verify from here
+## Everything is now verified
 
-The sandbox network blocks these domains, so confirm them yourself in a browser:
+| Item | Status |
+|---|---|
+| UNESCO (2023) GEM Report DOI | **Confirmed.** `10.54676/UZQV8501` is correct (ISBN 978-92-3-100609-8, published 26 July 2023). An earlier test failed only because the label text was pasted into doi.org instead of the DOI string itself. |
+| Zeraki | **Confirmed.** Cloud-based school management platform, deployed in Kenya, Uganda, Tanzania, Ghana and South Africa. Section 1.2 now states it is an incumbent in Uganda specifically, which makes it a genuinely proximate competitor rather than a generic one. |
+| QuickSchools | **Confirmed.** Cloud-hosted school information system serving small and mid-sized institutions, private K-12 and vocational programmes internationally. |
 
-1. **UNESCO (2023) GEM Report DOI** — `10.54676/UZQV8501`. Paste it into doi.org and check it resolves.
-2. **Zeraki and QuickSchools URLs** — `zeraki.app` and `quickschools.com`. Confirm both load,
-   and add retrieval dates if your department requires them for web sources.
-
-Two figures also remain worth a second look because editions update:
+Two figures remain worth a glance only because editions update, not because they are in
+doubt:
 
 - **89% learning poverty** in Sub-Saharan Africa (World Bank et al., 2022) — check whether a
   newer edition supersedes the 2022 update
-- **250 million / 43%** of under-fives at risk (Black et al., 2017) — long-established, but
-  confirm the phrasing against the abstract
-
----
+- **250 million / 43%** of under-fives at risk (Black et al., 2017) — long established; confirm
+  the phrasing against the abstract
 
 ## Audit record
 
@@ -75,7 +74,11 @@ behind it (now SO7 and RQ8); the system was unnamed (now Loom, with the Golden T
 portfolio); and the production and revenue pathway is now named in 1.5 as a deliberate
 exclusion requiring separate ethical review.
 
-**Round 3 — references and statistics.** This document.
+**Round 3 — references and statistics.** Every outstanding reference detail researched
+against source. One real error found and corrected (Means et al.'s fourth author). Four
+statistics added where the text had been hedging. DOI, Zeraki and QuickSchools all
+subsequently confirmed, and the competitor analysis in 1.2 sharpened with the verified
+detail that Zeraki operates in Uganda.
 
 ## Compliance already confirmed
 
