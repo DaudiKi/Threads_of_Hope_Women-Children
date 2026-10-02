@@ -1,0 +1,836 @@
+<title>Loom Child Studio</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column with a dyed-indigo warp running down the left of each section node. */
+:root{
+  --paper:#F1F3F8;
+  --card:#FFFFFF;
+  --card-sunk:#F7F8FC;
+  --ink:#121829;
+  --ink-soft:#48526B;
+  --ink-faint:#6E7792;
+  --rule:#D8DCE8;
+  --rule-soft:#E8EBF3;
+  --indigo:#26357A;
+  --on-indigo:#FFFFFF;
+  --indigo-ink:#26357A;
+  --indigo-soft:#E5E9F7;
+  --ochre:#B06A14;
+  --ochre-soft:#FAEEDC;
+  --madder:#A32F3F;
+  --madder-soft:#FAE5E8;
+  --sisal:#2E7D32;
+  --sisal-soft:#E2EFE3;
+  --shadow:0 1px 2px rgba(18,24,41,.06), 0 8px 24px -12px rgba(18,24,41,.18);
+  --display:"Fraunces","Iowan Old Style",Georgia,serif;
+  --body:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0C1120;
+    --card:#141B2E;
+    --card-sunk:#101729;
+    --ink:#E8EBF5;
+    --ink-soft:#A6AFC7;
+    --ink-faint:#7F89A2;
+    --rule:#263052;
+    --rule-soft:#1C2440;
+    --indigo:#8EA2EC;
+    --on-indigo:#0C1120;
+    --indigo-ink:#B6C3F4;
+    --indigo-soft:#1B2445;
+    --ochre:#E0A64E;
+    --ochre-soft:#2E2314;
+    --madder:#E88A95;
+    --madder-soft:#2E161B;
+    --sisal:#6FC174;
+    --sisal-soft:#15291A;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.8);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0C1120;
+  --card:#141B2E;
+  --card-sunk:#101729;
+  --ink:#E8EBF5;
+  --ink-soft:#A6AFC7;
+  --ink-faint:#7F89A2;
+  --rule:#263052;
+  --rule-soft:#1C2440;
+  --indigo:#8EA2EC;
+  --on-indigo:#0C1120;
+  --indigo-ink:#B6C3F4;
+  --indigo-soft:#1B2445;
+  --ochre:#E0A64E;
+  --ochre-soft:#2E2314;
+  --madder:#E88A95;
+  --madder-soft:#2E161B;
+  --sisal:#6FC174;
+  --sisal-soft:#15291A;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.8);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.62;
+  margin:0;
+  padding-inline:20px;
+  padding-block:0;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding-block:0 96px}
+h1,h2,h3,h4{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.14;letter-spacing:-.012em}
+p{margin:0}
+a{color:var(--indigo-ink)}
+::selection{background:var(--indigo);color:var(--on-indigo)}
+:focus-visible{outline:2px solid var(--ochre);outline-offset:3px;border-radius:4px}
+
+/* ---------- masthead ---------- */
+.mast{padding-block:64px 44px;border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:22px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.eyebrow b{color:var(--indigo-ink);font-weight:500}
+.mast h1{font-size:clamp(2.6rem,7.5vw,4.6rem);font-weight:700;letter-spacing:-.03em}
+.mast h1 em{font-style:normal;color:var(--indigo-ink)}
+.lede{font-size:clamp(1.08rem,2.4vw,1.32rem);color:var(--ink-soft);max-width:60ch;margin-top:20px;line-height:1.52}
+.thesis{
+  margin-top:30px;padding:20px 22px;border-left:4px solid var(--ochre);
+  background:var(--ochre-soft);border-radius:0 10px 10px 0;
+  font-family:var(--display);font-size:clamp(1.05rem,2.3vw,1.24rem);line-height:1.46;max-width:62ch;
+}
+.metagrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden;margin-top:34px}
+.metagrid div{background:var(--card);padding:14px 16px;min-width:0}
+.metagrid dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:5px}
+.metagrid dd{margin:0;font-size:14px;font-weight:500;line-height:1.35}
+
+/* ---------- sections ---------- */
+section{padding-block:56px;border-bottom:1px solid var(--rule-soft)}
+section:last-of-type{border-bottom:0}
+.shead{display:flex;gap:14px;align-items:baseline;margin-bottom:10px}
+.snum{font-family:var(--mono);font-size:12px;color:var(--ochre);letter-spacing:.08em;flex:none;padding-top:4px}
+.shead h2{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:700}
+.sdek{color:var(--ink-soft);max-width:68ch;margin-bottom:30px;font-size:16.5px}
+
+/* ---------- generic pieces ---------- */
+.card{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:22px 24px;min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.tag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.t-ind{background:var(--indigo-soft);color:var(--indigo-ink)}
+.t-och{background:var(--ochre-soft);color:var(--ochre)}
+.t-mad{background:var(--madder-soft);color:var(--madder)}
+.t-sis{background:var(--sisal-soft);color:var(--sisal)}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--rule);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:620px}
+th,td{text-align:left;padding:12px 15px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);background:var(--card-sunk);border-bottom:1px solid var(--rule)}
+tbody tr:last-child td{border-bottom:0}
+td b{font-weight:600}
+.num{font-variant-numeric:tabular-nums}
+code,.mono{font-family:var(--mono);font-size:.88em;background:var(--card-sunk);padding:1.5px 5px;border-radius:4px;border:1px solid var(--rule-soft);word-break:break-word}
+
+/* ---------- pivot ---------- */
+.pivot{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}
+.pivot .card{position:relative}
+.pivot .card h3{font-size:1.12rem;margin-bottom:4px}
+.pivot .card .tag{margin-bottom:14px}
+.pivot ul{margin:0;padding-left:1.15em;color:var(--ink-soft);font-size:14.6px;display:grid;gap:7px}
+.was{background:var(--card-sunk)}
+.was h3{color:var(--ink-soft)}
+.now{border-color:var(--indigo);box-shadow:var(--shadow)}
+.now h3{color:var(--indigo-ink)}
+
+/* ---------- engine diagram ---------- */
+.engine{display:grid;gap:14px;grid-template-columns:minmax(0,1fr);align-items:stretch}
+@media(min-width:760px){.engine{grid-template-columns:minmax(200px,0.85fr) 44px minmax(0,1.6fr)}}
+.engine-in{background:var(--indigo);color:var(--on-indigo);border-radius:12px;padding:22px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.engine-in h4{font-size:1.12rem;color:inherit}
+.engine-in p{font-size:14px;opacity:.88}
+.engine-arrow{display:flex;align-items:center;justify-content:center;color:var(--ochre);font-size:26px;font-family:var(--mono)}
+.engine-out{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.out{background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--ochre);border-radius:8px;padding:13px 15px;min-width:0}
+.out h5{font-family:var(--display);font-size:.98rem;margin:0 0 3px;font-weight:600}
+.out p{font-size:13.4px;color:var(--ink-soft);line-height:1.46}
+
+/* ---------- principles ---------- */
+.prin{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.prin > div{background:var(--card);padding:17px 20px;display:grid;grid-template-columns:minmax(0,1fr);gap:6px}
+@media(min-width:720px){.prin > div{grid-template-columns:minmax(190px,.85fr) minmax(0,1.5fr);gap:24px;align-items:start}}
+.prin h4{font-size:1rem;font-weight:600}
+.prin h4 span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);font-weight:400;margin-top:4px}
+.prin p{font-size:14.4px;color:var(--ink-soft)}
+.prin p b{color:var(--ink);font-weight:600}
+
+/* ---------- ladder ---------- */
+.stage{background:var(--card);border:1px solid var(--rule);border-radius:14px;overflow:hidden;margin-bottom:18px}
+.stage-top{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline;padding:18px 22px;background:var(--card-sunk);border-bottom:1px solid var(--rule)}
+.stage-top .age{font-family:var(--mono);font-size:12px;color:var(--ochre);letter-spacing:.07em;flex:none}
+.stage-top h3{font-size:1.3rem;font-weight:700;flex:none}
+.stage-top .claim{font-family:var(--display);font-size:1.02rem;color:var(--indigo-ink);font-style:italic;min-width:0}
+.strands{display:grid;gap:1px;background:var(--rule-soft)}
+@media(min-width:800px){.strands{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.strand{background:var(--card);padding:18px 22px;min-width:0}
+.strand h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:11px;font-weight:500}
+.strand ul{margin:0;padding-left:1.1em;font-size:14.4px;color:var(--ink-soft);display:grid;gap:6px}
+.strand li b{color:var(--ink);font-weight:600}
+.stage-foot{display:grid;gap:1px;background:var(--rule-soft);border-top:1px solid var(--rule)}
+@media(min-width:800px){.stage-foot{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stage-foot > div{background:var(--card-sunk);padding:16px 22px;min-width:0}
+.stage-foot h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;font-weight:500}
+.stage-foot .reads h4{color:var(--indigo-ink)}
+.stage-foot .exit h4{color:var(--sisal)}
+.stage-foot p{font-size:14.2px;color:var(--ink-soft)}
+
+/* ---------- loop ---------- */
+.loop{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));counter-reset:loop}
+.loop-step{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:16px 17px;position:relative;min-width:0}
+.loop-step::before{counter-increment:loop;content:counter(loop);font-family:var(--mono);font-size:10.5px;color:var(--on-indigo);background:var(--indigo);width:21px;height:21px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.loop-step h5{font-family:var(--display);font-size:1rem;margin:0 0 5px;font-weight:600}
+.loop-step p{font-size:13.4px;color:var(--ink-soft);line-height:1.45}
+.loop-step .who{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ochre);margin-top:9px;display:block}
+
+/* ---------- callouts ---------- */
+.note{border-left:4px solid var(--madder);background:var(--madder-soft);padding:16px 20px;border-radius:0 10px 10px 0;font-size:14.6px;color:var(--ink-soft)}
+.note b{color:var(--ink)}
+.good{border-left-color:var(--sisal);background:var(--sisal-soft)}
+.info{border-left-color:var(--indigo);background:var(--indigo-soft)}
+
+/* ---------- objectives ---------- */
+.obj{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px 22px;margin-bottom:12px}
+.obj-h{display:flex;gap:12px;align-items:baseline;margin-bottom:9px}
+.obj-h .id{font-family:var(--mono);font-size:12px;color:var(--ochre);flex:none}
+.obj-h p{font-weight:500;font-size:15.5px;line-height:1.48}
+.smart{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.smart span{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;background:var(--card-sunk);border:1px solid var(--rule-soft);color:var(--ink-faint);padding:3px 8px;border-radius:5px}
+.smart span b{color:var(--indigo-ink);font-weight:500}
+
+/* ---------- refs ---------- */
+.refs{display:grid;gap:11px;counter-reset:ref;margin:0;padding:0;list-style:none}
+.refs li{counter-increment:ref;display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;font-size:14.3px;color:var(--ink-soft);line-height:1.5;padding-bottom:11px;border-bottom:1px solid var(--rule-soft)}
+.refs li::before{content:"[" counter(ref) "]";font-family:var(--mono);font-size:11.5px;color:var(--ochre);padding-top:3px}
+.refs li:last-child{border-bottom:0}
+.refs i{font-style:italic;color:var(--ink)}
+
+.foot{padding-block:44px 0;border-top:1px solid var(--rule);color:var(--ink-faint);font-size:13.5px;display:grid;gap:8px}
+.foot b{color:var(--ink-soft);font-weight:600}
+hr.thread{border:0;border-top:1px dashed var(--rule);margin:26px 0}
+.stack{display:grid;gap:16px}
+.stack-sm{display:grid;gap:10px}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">
+    <span>Threads&nbsp;of&nbsp;Hope</span><span>·</span>
+    <span><b>Unit Two — Project Draft</b></span><span>·</span>
+    <span>Full-Stack Web Development track</span>
+  </div>
+  <h1>Loom <em>Child Studio</em></h1>
+  <p class="lede">A child-centred extension to Threads of Hope that turns the two things every vulnerable child can already do — <strong>draw a picture</strong> and <strong>tell a story</strong> — into a developmental screening instrument, a ten-year Arts, Design &amp; Culture curriculum, and a portfolio they own and walk out with at eighteen.</p>
+  <p class="thesis">Right now the platform holds children as <em>case files</em>. Loom makes them <em>authors</em>. Same database, opposite relationship: the child stops being the record and becomes the one who writes it.</p>
+
+  <dl class="metagrid">
+    <div><dt>Global Challenge</dt><dd>Education</dd></div>
+    <div><dt>Global Opportunity</dt><dd>Arts, Design &amp; Culture</dd></div>
+    <div><dt>Age band</dt><dd class="num">8 – 18 years</dd></div>
+    <div><dt>Artifact</dt><dd>Offline-first PWA</dd></div>
+    <div><dt>Builds on</dt><dd>React 18 · Node/Express · PostgreSQL</dd></div>
+    <div><dt>Women's modules</dt><dd>Kept, and extended</dd></div>
+  </dl>
+</header>
+
+<!-- ============ 01 PIVOT ============ -->
+<section>
+  <div class="shead"><span class="snum">01</span><h2>The pivot this project rests on</h2></div>
+  <p class="sdek">The repository already contains a working child-welfare system: <code>Child</code>, <code>ChildEvent</code>, an NGO console, donations, messaging. Everything in it treats the child in the third person. Nothing in it is addressed <em>to</em> the child. That single absence is the research opening and the product opportunity at the same time.</p>
+
+  <div class="pivot">
+    <div class="card was">
+      <h3>What exists today</h3>
+      <span class="tag t-ind">the child as case record</span>
+      <ul>
+        <li><code>Child</code> stores trauma history, legal status, guardian details, rescue circumstances — a case file written by adults.</li>
+        <li><code>ChildEvent</code> logs <i>health_checkup</i>, <i>placement_change</i>, <i>incident</i> — things that happen <em>to</em> a child.</li>
+        <li>No child account. No child login. The <code>User.role</code> enum has no <i>child</i> value.</li>
+        <li><code>Badge</code> and <code>Enrollment</code> exist, but attach to <code>User</code> — so only women can earn or enrol.</li>
+        <li>Development is captured as free text (<code>academicPerformance</code>), never as measurable signal.</li>
+        <li>Nothing leaves with the child. At eighteen the record closes and the child exits with nothing in hand.</li>
+      </ul>
+    </div>
+    <div class="card now">
+      <h3>What Loom adds</h3>
+      <span class="tag t-och">the child as author</span>
+      <ul>
+        <li>A <b>child account</b> with avatar + PIN login, guardian-consented, requiring no email, no phone, no literacy.</li>
+        <li>A <b>Studio</b> — a browser canvas and a story microphone — where the child makes work.</li>
+        <li>Every creation is scored on-device into <b>developmental signals</b>: motor control, spatial reasoning, narrative structure, expressive range.</li>
+        <li>Signals drive an <b>adaptive quest ladder</b> across four stages from age 8 to 18.</li>
+        <li>Flat or falling signals raise a <b>quiet early-warning</b> to a teacher — never to the child, never automatically escalated.</li>
+        <li>Ten years of work compound into <b>The Golden Thread</b>: a verified, exportable, child-owned creative portfolio and skills record.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note good" style="margin-top:18px"><b>The women's work is untouched.</b> Training programmes, enrolments, progress tracking, certificates, donations and messaging all stay exactly as built. The women gain one new thing — the role of <b>Atelier Guide</b> — which puts their tailoring and craft skill to work on children's designs, and gives the platform a revenue loop it does not have today.</div>
+</section>
+
+<!-- ============ 02 ENGINE ============ -->
+<section>
+  <div class="shead"><span class="snum">02</span><h2>One drawing and one story, four outputs</h2></div>
+  <p class="sdek">This is the mechanism the whole proposal turns on. A child spends twelve minutes making something. From that single act the system produces four distinct things that normally require four separate systems, four budgets and a visiting psychologist. The child experiences none of it as a test.</p>
+
+  <div class="engine">
+    <div class="engine-in">
+      <h4>The child makes</h4>
+      <p><b>One drawing</b> — on the canvas, or photographed from paper with the classroom phone.</p>
+      <p><b>One spoken story</b> — 30 to 90 seconds, in English, Kiswahili or French, about the thing they drew.</p>
+      <p style="font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;opacity:.8;padding-top:4px">NO READING REQUIRED · NO INTERNET REQUIRED</p>
+    </div>
+    <div class="engine-arrow" aria-hidden="true">→</div>
+    <div class="engine-out">
+      <div class="out"><h5>Developmental signal</h5><p>Fine-motor control, spatial reasoning, figure complexity, narrative causality, lexical range — scored on-device, trended over time.</p></div>
+      <div class="out"><h5>The next lesson</h5><p>The weakest and the strongest axis together pick the child's next quest on the Arts, Design &amp; Culture ladder.</p></div>
+      <div class="out"><h5>A safeguarding flag</h5><p>A flatlined motor index or a narrative that turns isolating across several cycles raises a private alert to a named adult.</p></div>
+      <div class="out"><h5>A portfolio entry</h5><p>The work, the date, the brief and the growth it evidences are pinned permanently into the child's Golden Thread.</p></div>
+    </div>
+  </div>
+
+  <div class="note info" style="margin-top:20px"><b>Why this is the defensible idea.</b> Commercial school analytics need literate learners and a connection. Clinical screening tools need a trained psychologist and half an hour per child. Creative apps produce pretty work and no measurement. Loom takes the artefact children in these classrooms already produce every week — a drawing and a told story — and extracts assessment, curriculum, safeguarding and economic value from it at once, on a shared Android phone with the data switched off.</div>
+</section>
+
+<!-- ============ 03 PRINCIPLES ============ -->
+<section>
+  <div class="shead"><span class="snum">03</span><h2>What makes it child-centred, concretely</h2></div>
+  <p class="sdek">"Child-centred" fails a rubric when it stays a value. Each principle below is paired with the specific product decision that enforces it — which is what an examiner, and later a user, can actually check.</p>
+
+  <div class="prin">
+    <div><h4>Child agency and ownership<span>UNCRC Art. 12 · Hart's ladder</span></h4><p><b>The child owns the account and the portfolio.</b> They can mark a piece private, choose which work is shown publicly, and export everything when they leave. Guardians and teachers get scoped views, not ownership. Older children sit on the panel that writes new quest briefs.</p></div>
+    <div><h4>The hundred languages<span>Reggio Emilia</span></h4><p><b>Drawing, modelling, pattern, performance and spoken story are first-class submissions</b> — not enrichment after the "real" subjects. The canvas and the microphone are the primary input surfaces of the application.</p></div>
+    <div><h4>Scaffolding in the zone of proximal development<span>Vygotsky</span></h4><p><b>Quest difficulty is set from the child's own last three submissions, not from their age or grade.</b> Every quest ships with a "do it with someone" variant that pairs the child with a mentor or an older peer.</p></div>
+    <div><h4>Mastery, not age-grading<span>competency-based progression</span></h4><p><b>A fourteen-year-old who lost four years of school starts at the stage their work places them in</b> and moves at their own pace. Attainment states are <i>not yet · emerging · secure · mastery</i>. There is no failure state anywhere in the data model.</p></div>
+    <div><h4>Invisible, formative assessment<span>assessment as learning</span></h4><p><b>The assessment is the artwork.</b> No timed tests, no exam room, no literacy requirement. A child who has never sat a written paper still generates a complete developmental profile by drawing their grandmother.</p></div>
+    <div><h4>Trauma-informed by construction<span>strengths-based practice</span></h4><p><b>Strengths-first language, no red fail states, no public leaderboards.</b> Safeguarding indicators are never shown to the child, never shown to peers, and never auto-escalate — they open a private triage card for a named, trained adult.</p></div>
+    <div><h4>Culturally sustaining content<span>Paris &amp; Alim</span></h4><p><b>Briefs are built from kitenge and kanga motif systems, local proverbs, folktales and family oral history</b> — not translated Western worksheets. The platform's existing English, Kiswahili and French locales carry it, with audio instruction for non-readers.</p></div>
+    <div><h4>Autonomy, competence, relatedness<span>self-determination theory</span></h4><p><b>The child chooses between three open quests</b> (autonomy), <b>watches their own growth curve move</b> (competence), and <b>is paired with a guide and a peer circle</b> (relatedness). These are the three retention levers, and they are explicit in the schema.</p></div>
+    <div><h4>Universal design for learning<span>CAST UDL 2.2</span></h4><p><b>Icon-first navigation, audio instructions on every screen, no step that requires reading.</b> Large touch targets, high-contrast mode, one-handed phone layout, full keyboard and screen-reader paths.</p></div>
+    <div><h4>Learning Stories, not grades<span>Carr &amp; Lee</span></h4><p><b>Progress is a narrative record co-authored by the child, the teacher and the guardian</b> against a longitudinal archive of real work — the opposite of a term-end number.</p></div>
+    <div><h4>Peer teaching as progression<span>reciprocal learning</span></h4><p><b>Reaching Stage 4 means teaching Stage 1.</b> Mentoring hours are a tracked competency, not volunteering. It is how the cycle visibly breaks inside one cohort.</p></div>
+    <div><h4>The child leaves holding something<span>exit with assets</span></h4><p><b>At eighteen the child exports a portfolio, a skills passport, a public portfolio URL and a mentor reference.</b> The alternative — a care record that closes and an empty pair of hands — is the status quo this project exists to end.</p></div>
+  </div>
+</section>
+
+<!-- ============ 04 LADDER ============ -->
+<section>
+  <div class="shead"><span class="snum">04</span><h2>The skills ladder, ages 8 to 18</h2></div>
+  <p class="sdek">Four stages across ten years, each with four strands. Everything here is practical: a skill a child can perform, a teacher can witness, and the system can evidence. The right-hand columns say what the software reads from the work and what the child can demonstrably do by the end of each stage.</p>
+
+  <!-- STAGE 1 -->
+  <article class="stage">
+    <div class="stage-top">
+      <span class="age">STAGE 1 · AGES 8–10</span>
+      <h3>Foundation</h3>
+      <span class="claim">"I can make a mark that means something."</span>
+    </div>
+    <div class="strands">
+      <div class="strand"><h4>Draw &amp; See</h4><ul>
+        <li><b>Line and pressure control</b> — continuous line, varied weight, staying inside a boundary</li>
+        <li><b>Closed-shape formation</b> — circles, squares, triangles drawn closed and even</li>
+        <li><b>Grid copying and scaling</b> — reproducing a shape larger or smaller</li>
+        <li><b>Draw-a-person</b> — the human figure, built up part by part over the year</li>
+        <li><b>Symmetry and pattern repetition</b> — mirroring, and repeating a motif across a strip</li>
+        <li><b>Observational drawing</b> — drawing a real object in front of them, not from memory</li>
+        <li><b>Colour mixing and naming</b> in all three platform languages</li>
+      </ul></div>
+      <div class="strand"><h4>Design &amp; Make</h4><ul>
+        <li><b>Paper folding and net construction</b> — flat sheet into a standing object</li>
+        <li><b>Card-loom weaving</b> — the first real over-under, and the project's namesake</li>
+        <li><b>Clay and mud modelling</b> — pinch, coil, join</li>
+        <li><b>Collage from scrap</b> — composition from found material</li>
+        <li><b>Simple beadwork</b> — threading to a stated colour sequence</li>
+        <li><b>Measuring by hand and by ruler</b> — the first bridge into numeracy</li>
+      </ul></div>
+      <div class="strand"><h4>Story &amp; Culture</h4><ul>
+        <li><b>Retelling a folktale in sequence</b> — beginning, middle, end, in order</li>
+        <li><b>The 60-second "my day"</b> narration, recorded</li>
+        <li><b>Naming feelings through a character</b> — safer than naming your own</li>
+        <li><b>Call-and-response song and rhythm</b> — timing, listening, turn-taking</li>
+        <li><b>Describing your own drawing aloud</b> — the core weekly ritual</li>
+      </ul></div>
+      <div class="strand"><h4>Tools &amp; Trade</h4><ul>
+        <li><b>Caring for materials</b> — brushes, lids, sharing, returning</li>
+        <li><b>Using the tablet or phone canvas</b> — draw, undo, save</li>
+        <li><b>Recording your own voice</b> — press, speak, stop, listen back</li>
+        <li><b>Photographing paper work</b> so it joins the digital thread</li>
+      </ul></div>
+    </div>
+    <div class="stage-foot">
+      <div class="reads"><h4>What the system reads</h4><p>Stroke count and length · line tremor from curvature variance · shape closure rate · ink coverage and canvas use · bounding-box symmetry · figure-part count (a Draw-a-Person style index) · utterance length · unique word count · pause ratio · sequence markers in the retelling.</p></div>
+      <div class="exit"><h4>Exit standard</h4><p>Draws a closed, recognisable human figure with six or more parts; repeats a motif accurately across a strip; records a 60-second told story with a clear beginning, middle and end; completes a woven card and a folded standing form unaided.</p></div>
+    </div>
+  </article>
+
+  <!-- STAGE 2 -->
+  <article class="stage">
+    <div class="stage-top">
+      <span class="age">STAGE 2 · AGES 11–13</span>
+      <h3>Craft</h3>
+      <span class="claim">"I can make something that works."</span>
+    </div>
+    <div class="strands">
+      <div class="strand"><h4>Draw &amp; See</h4><ul>
+        <li><b>Proportion and scale</b> — the head-count method for figures</li>
+        <li><b>Light, shadow and form</b> — making a flat circle read as a sphere</li>
+        <li><b>One-point perspective</b> — a street, a room, a market stall</li>
+        <li><b>Character design sheets</b> — one character, four angles, consistent</li>
+        <li><b>Six-panel storyboarding</b> — the first real control of time and sequence</li>
+        <li><b>Hand lettering</b> — letterform, spacing, a drawn headline</li>
+      </ul></div>
+      <div class="strand"><h4>Design &amp; Make</h4><ul>
+        <li><b>Textile pattern design</b> — building a repeat from a kitenge or kanga motif system</li>
+        <li><b>Hand sewing and basic garment construction</b> — the direct handover to the women's hub</li>
+        <li><b>Block and screen printing</b> — cutting a block, pulling a clean print</li>
+        <li><b>Beadwork and jewellery to a brief</b> — with a stated budget</li>
+        <li><b>Product sketching with dimensions</b> — an idea another person could build</li>
+        <li><b>An upcycling brief</b> — a sellable object from waste material</li>
+        <li><b>Costing a made object</b> — materials, time, what it should sell for</li>
+      </ul></div>
+      <div class="strand"><h4>Story &amp; Culture</h4><ul>
+        <li><b>Writing and performing a short scripted scene</b></li>
+        <li><b>Interviewing an elder</b> — oral history captured, consented and archived</li>
+        <li><b>Proverb interpretation</b> — unpacking a saying into an image</li>
+        <li><b>Documentary photography</b> — a five-frame photo essay on a phone</li>
+        <li><b>A three-minute audio story</b> — recorded, trimmed, published to the class gallery</li>
+      </ul></div>
+      <div class="strand"><h4>Tools &amp; Trade</h4><ul>
+        <li><b>Digital drawing</b> with layers, on a mouse or a touchscreen</li>
+        <li><b>Photographing work properly</b> — light, square-on, cropped, colour-true</li>
+        <li><b>File naming, folders and export formats</b> — the unglamorous skill that decides whether work survives</li>
+        <li><b>Giving and taking critique</b> — two things that worked, one change</li>
+        <li><b>Working to a deadline</b> and revising after feedback</li>
+      </ul></div>
+    </div>
+    <div class="stage-foot">
+      <div class="reads"><h4>What the system reads</h4><p>Compositional complexity and depth cues · tonal range · motif repeat accuracy · iteration count per brief (how many versions before submission) · revision responsiveness after critique · narrative causality rather than mere sequence — <i>because</i> and <i>so</i> replacing <i>and then</i> · type-token ratio · brief-to-delivery completion rate.</p></div>
+      <div class="exit"><h4>Exit standard</h4><p>Delivers a finished object against a written brief and a budget; produces a tileable textile repeat printed onto real cloth; sews a simple garment or bag to measurement; publishes a three-minute recorded story and a five-frame photo essay; gives structured critique to a peer.</p></div>
+    </div>
+  </article>
+
+  <!-- STAGE 3 -->
+  <article class="stage">
+    <div class="stage-top">
+      <span class="age">STAGE 3 · AGES 14–16</span>
+      <h3>Studio</h3>
+      <span class="claim">"I can make it for someone other than myself."</span>
+    </div>
+    <div class="strands">
+      <div class="strand"><h4>Draw &amp; See</h4><ul>
+        <li><b>An illustration series</b> — consistent style across six or more pieces</li>
+        <li><b>Portraiture</b> — likeness, and the ethics of drawing a real person</li>
+        <li><b>Large-format and mural work</b> — scaling up, working in a team</li>
+        <li><b>Visual identity systems</b> — one idea expressed across many surfaces</li>
+      </ul></div>
+      <div class="strand"><h4>Design &amp; Make</h4><ul>
+        <li><b>Graphic design fundamentals</b> — hierarchy, grid, colour theory, type pairing</li>
+        <li><b>Logo and brand identity</b> for a real local business or a classmate's venture</li>
+        <li><b>Poster, flyer and social-media asset design</b> at correct dimensions</li>
+        <li><b>UI/UX basics</b> — user flows, wireframes, clickable prototypes <span class="tag t-ind" style="margin-left:4px">bridge to tech</span></li>
+        <li><b>Packaging and label design</b> — including print-safe setup</li>
+        <li><b>Fashion flats and a tech pack</b> — the drawing a tailor can cut from</li>
+        <li><b>Prototyping</b> — card, cloth or clay model before committing material</li>
+      </ul></div>
+      <div class="strand"><h4>Story &amp; Culture</h4><ul>
+        <li><b>Scriptwriting</b> — structure, conflict, resolution</li>
+        <li><b>A three-to-five minute short film</b>, shot and cut on a phone</li>
+        <li><b>Spoken word and performance poetry</b> before a live audience</li>
+        <li><b>Curating an exhibition</b> — selection, sequence, wall text, invitation</li>
+        <li><b>Pitching your own work</b> — standing up and explaining why it is good</li>
+      </ul></div>
+      <div class="strand"><h4>Tools &amp; Trade</h4><ul>
+        <li><b>Figma or Penpot</b> — components, frames, prototypes</li>
+        <li><b>Inkscape, Krita and GIMP</b> — free, offline-capable, no licence barrier</li>
+        <li><b>Phone videography and editing</b>; audio editing in Audacity</li>
+        <li><b>HTML and CSS to publish a portfolio page</b> — the first line of code, written because they need it</li>
+        <li><b>Colour profiles, bleed, DPI and print handover</b></li>
+        <li><b>Crediting, licensing and copyright</b> — their rights and other people's</li>
+        <li><b>The client loop</b>: brief → concept → revision → delivery → invoice</li>
+      </ul></div>
+    </div>
+    <div class="stage-foot">
+      <div class="reads"><h4>What the system reads</h4><p>Audience-awareness in the work · stylistic consistency across a series · number of revision cycles survived without abandonment · brief-fidelity scored against the stated constraints · peer-critique quality given and received · time from brief to delivery · first evidence of a chosen specialism emerging.</p></div>
+      <div class="exit"><h4>Exit standard</h4><p>Completes three briefs for real external clients; ships a brand identity with a usage sheet; builds and publishes a working portfolio page they wrote themselves; directs and edits a short film; hangs and explains work in a public exhibition.</p></div>
+    </div>
+  </article>
+
+  <!-- STAGE 4 -->
+  <article class="stage">
+    <div class="stage-top">
+      <span class="age">STAGE 4 · AGES 17–18</span>
+      <h3>Enterprise</h3>
+      <span class="claim">"I can make a living, and I can teach it."</span>
+    </div>
+    <div class="strands">
+      <div class="strand"><h4>Specialise</h4><ul>
+        <li>Choose one track and go deep: <b>illustration · textile &amp; fashion · graphic &amp; brand · digital product and UI · film &amp; photography · performance &amp; storytelling</b></li>
+        <li><b>A capstone body of work</b> in that track — eight to twelve finished pieces</li>
+        <li><b>An artist or designer statement</b> that survives being read aloud</li>
+      </ul></div>
+      <div class="strand"><h4>Professional practice</h4><ul>
+        <li><b>Pricing creative work</b> — day rate, project rate, licensing</li>
+        <li><b>Writing a quote, a proposal and an invoice</b></li>
+        <li><b>Deposits, contracts and scope</b> — how not to be exploited</li>
+        <li><b>Client communication</b> — confirming, chasing, saying no</li>
+        <li><b>Supplier and printer liaison</b>; getting a real quote from a real vendor</li>
+        <li><b>A creative CV and a portfolio website</b> they maintain themselves</li>
+      </ul></div>
+      <div class="strand"><h4>Enterprise</h4><ul>
+        <li><b>Costing for profit</b> — materials plus labour plus margin, honestly</li>
+        <li><b>Mobile money, bookkeeping and separating business from personal</b></li>
+        <li><b>Registering a micro-business</b> and what it requires locally</li>
+        <li><b>Selling</b> — market stall, commission, online shop, social presence</li>
+        <li><b>Producing at volume with the women's cooperative</b> — their design, the hub's machines</li>
+        <li><b>Applying</b> — to art schools, apprenticeships, agencies, grants and residencies</li>
+      </ul></div>
+      <div class="strand"><h4>Lead &amp; hand on</h4><ul>
+        <li><b>Mentoring Stage 1 children</b> — logged hours, assessed as a competency</li>
+        <li><b>Running a community workshop</b> end to end</li>
+        <li><b>Documenting and archiving community heritage</b> for the platform's cultural collection</li>
+        <li><b>Co-writing the next cohort's quest briefs</b> — the child becomes the curriculum author</li>
+      </ul></div>
+    </div>
+    <div class="stage-foot">
+      <div class="reads"><h4>What the system reads</h4><p>A six-axis readiness index — craft, conceptual range, professional practice, enterprise literacy, cultural leadership, mentoring — plus completed external commissions, verified income earned, mentoring hours logged, and portfolio completeness against the exit specification.</p></div>
+      <div class="exit"><h4>Exit standard — what an eighteen-year-old walks out with</h4><p><b>The Golden Thread:</b> ten years of dated, verified work; a specialism capstone; three or more paid or exhibited commissions; a self-built public portfolio URL; a creative CV and skills passport; recorded mentoring hours; and a named mentor reference. In hand, in their own account, on the day they leave.</p></div>
+    </div>
+  </article>
+</section>
+
+<!-- ============ 05 LOOP ============ -->
+<section>
+  <div class="shead"><span class="snum">05</span><h2>The Thread-to-Market loop</h2></div>
+  <p class="sdek">This is where the children's module and the women's module stop being two products in one repository and become one system. A child designs; the women's cooperative — already in the database, already trained in tailoring — produces it; a donor or a customer buys it; and the money splits between the child's education fund and the woman who made it. It is the mission statement rendered as a database transaction.</p>
+
+  <div class="loop">
+    <div class="loop-step"><h5>Design</h5><p>A Stage 2–4 child submits a textile repeat, a print or a product design against a seasonal brief.</p><span class="who">child</span></div>
+    <div class="loop-step"><h5>Select</h5><p>An Atelier Guide — a woman from the existing training cohort — reviews, selects and costs the design with the child.</p><span class="who">woman · ngo</span></div>
+    <div class="loop-step"><h5>Produce</h5><p>The cooperative's sewing and craft hub manufactures a short run. Existing enrolment and skills records show who is qualified to make it.</p><span class="who">woman</span></div>
+    <div class="loop-step"><h5>Sell</h5><p>The piece lists in the Atelier shop. Donors and buyers purchase through the donation rails already in the platform.</p><span class="who">donor · public</span></div>
+    <div class="loop-step"><h5>Split</h5><p>Revenue divides on a transparent, recorded rule: the child's education fund, the maker's wage, and the hub's materials float.</p><span class="who">system</span></div>
+    <div class="loop-step"><h5>Report</h5><p>An impact report generates automatically — the drawing, the finished product, the maker, the child, the sum. Real provenance, not a stock photo.</p><span class="who">ngo · donor</span></div>
+  </div>
+
+  <div class="grid2" style="margin-top:18px">
+    <div class="note info"><b>Why it belongs in the proposal.</b> It converts the project's social claim into measurable outcomes an examiner can test: units produced, revenue split, education-fund balances, maker-hours paid. It also gives donors something no NGO dashboard offers — a purchase whose origin they can trace back to a specific child's drawing on a specific date.</div>
+    <div class="note"><b>The safeguard that must be built in.</b> Children earn into a restricted education fund with guardian and NGO co-signature; children are never customer-facing; no child's face, full name or location appears on a public listing. Child-labour and child-protection compliance is a design requirement of this module, not an afterthought — and the proposal should say so in the scope section.</div>
+  </div>
+</section>
+
+<!-- ============ 06 TECH ============ -->
+<section>
+  <div class="shead"><span class="snum">06</span><h2>The full-stack build</h2></div>
+  <p class="sdek">The earlier mission note proposed a downloadable desktop application. For a full-stack web specialisation — and, more importantly, for the devices these classrooms actually have — the stronger artifact is an <b>offline-first progressive web application</b>. It installs to the home screen without a store, runs on the shared Android phone and the staffroom laptop from one codebase, updates without redistributing an installer, and extends the React and Express stack already in this repository. Choosing the PWA is itself an argued technical contribution, and should be defended as one in Chapter One.</p>
+
+  <h3 style="font-size:1.12rem;margin-bottom:12px">New data models · <code>backend/src/models/</code></h3>
+  <div class="scroller">
+    <table>
+      <thead><tr><th style="width:24%">Model</th><th>Purpose</th><th style="width:30%">Key fields</th></tr></thead>
+      <tbody>
+        <tr><td><code>ChildAccount</code></td><td>Child-safe identity linked to the existing <code>Child</code> record. No email, no phone.</td><td>childId, avatarKey, pinHash, schoolCode, consentState, lastSeenAt</td></tr>
+        <tr><td><code>GuardianConsent</code></td><td>Consent ledger gating account creation, media capture and any public sharing.</td><td>childId, guardianId, scope, grantedAt, revokedAt, evidenceUrl</td></tr>
+        <tr><td><code>CreativeWork</code></td><td>The artefact itself — the atomic unit of the entire system.</td><td>childId, kind (drawing·design·story_audio·photo·video), mediaKey, promptId, stage, strand, visibility, capturedOfflineAt</td></tr>
+        <tr><td><code>DevelopmentSignal</code></td><td>Scored output for one work. Advisory, versioned, reviewable.</td><td>workId, motorIndex, spatialIndex, figureComplexity, narrativeStructure, lexicalDiversity, cadence, confidence, modelVersion, reviewedBy</td></tr>
+        <tr><td><code>Competency</code></td><td>The curriculum graph — stages, strands, descriptors, rubrics.</td><td>stage, strand, code, title, descriptor, rubric, prerequisites</td></tr>
+        <tr><td><code>ChildCompetency</code></td><td>Attainment state per child per competency, with evidence links.</td><td>childId, competencyId, state (not_yet·emerging·secure·mastery), evidenceWorkIds, attestedBy</td></tr>
+        <tr><td><code>Quest</code> · <code>QuestAssignment</code></td><td>Adaptive briefs and their assignment, due dates and completion.</td><td>competencyId, brief, materials, audioInstructionKey, difficulty / childId, status, dueAt</td></tr>
+        <tr><td><code>PortfolioItem</code> · <code>ShareToken</code></td><td>The Golden Thread and its revocable public link.</td><td>childId, workId, caption, pinnedAt / token, scope, expiresAt, revokedAt</td></tr>
+        <tr><td><code>DevelopmentAlert</code></td><td>Early-warning triage queue. Never visible to the child.</td><td>childId, kind, severity, windowStart, status, assignedTo, resolution</td></tr>
+        <tr><td><code>MentorshipPair</code></td><td>Links women and Stage-4 children to younger children; logs hours.</td><td>mentorUserId, menteeChildId, startedAt, hoursLogged, status</td></tr>
+        <tr><td><code>AtelierOrder</code> · <code>RevenueSplit</code></td><td>The Thread-to-Market loop, settling against existing <code>Donation</code>.</td><td>designWorkId, makerUserId, unitCost, price, quantity / childFundShare, makerShare, hubShare</td></tr>
+        <tr><td><code>SyncCursor</code></td><td>Per-device offline reconciliation state and idempotency keys.</td><td>deviceId, userId, lastServerSeq, pendingOps</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:14px;color:var(--ink-soft);margin-top:12px">Also: add <code>'child'</code> to the <code>User.role</code> enum or route child auth separately; generalise <code>Badge</code> so children can earn badges (today <code>UserBadge</code> binds to <code>users</code> only); register every model in <code>backend/src/models/index.js</code>; add one migration under <code>backend/src/migrations/</code>.</p>
+
+  <hr class="thread">
+
+  <div class="grid2">
+    <div class="card">
+      <h3 style="font-size:1.05rem;margin-bottom:12px">API · <code>backend/src/routes/</code></h3>
+      <ul style="margin:0;padding-left:1.15em;font-size:14.3px;color:var(--ink-soft);display:grid;gap:7px">
+        <li><code>POST /api/studio/works</code> — submit a drawing, story or photo, with offline capture timestamp</li>
+        <li><code>POST /api/studio/works/:id/signals</code> — store the on-device scoring result</li>
+        <li><code>GET /api/children/:id/competencies</code> — attainment map with evidence</li>
+        <li><code>GET /api/children/:id/quests</code> · <code>POST .../quests/:id/complete</code></li>
+        <li><code>GET /api/portfolio/:childId</code> · <code>GET /api/public/thread/:token</code></li>
+        <li><code>GET /api/alerts</code> · <code>PATCH /api/alerts/:id</code> — triage queue, NGO-scoped</li>
+        <li><code>POST /api/atelier/orders</code> · <code>GET /api/atelier/shop</code></li>
+        <li><code>POST /api/sync/batch</code> — idempotent replay of the offline outbox</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="font-size:1.05rem;margin-bottom:12px">Front end · <code>frontend/src/</code></h3>
+      <ul style="margin:0;padding-left:1.15em;font-size:14.3px;color:var(--ink-soft);display:grid;gap:7px">
+        <li><code>pages/child/Studio.jsx</code> — HTML5 canvas, Pointer Events, pressure and tilt, undo stack</li>
+        <li><code>pages/child/StoryBooth.jsx</code> — MediaRecorder, waveform, listen-back</li>
+        <li><code>pages/child/MyThread.jsx</code> — the portfolio timeline</li>
+        <li><code>pages/child/Quests.jsx</code> — three open briefs, icon-first, audio-led</li>
+        <li><code>pages/ngo/ClassroomConsole.jsx</code> — cohort heatmap, batch review</li>
+        <li><code>pages/ngo/AlertTriage.jsx</code> — human-in-the-loop confirmation</li>
+        <li><code>pages/woman/AtelierGuide.jsx</code> — select, cost and produce children's designs</li>
+        <li><code>components/studio/GrowthRadar.jsx</code> — six-axis radar on Recharts, already a dependency</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card">
+      <h3 style="font-size:1.05rem;margin-bottom:12px">Offline-first layer</h3>
+      <ul style="margin:0;padding-left:1.15em;font-size:14.3px;color:var(--ink-soft);display:grid;gap:7px">
+        <li><b>Service worker</b> (Workbox) — app shell precache, stale-while-revalidate for media, model files cached on first run</li>
+        <li><b>IndexedDB via Dexie</b> — works, signals, quests and the outbox persist locally; a full session completes with the radio off</li>
+        <li><b>Background Sync</b> — the outbox drains when connectivity returns; every operation carries an idempotency key</li>
+        <li><b>Conflict policy</b> — server-authoritative for competency state, last-write-wins for drafts, append-only for works and signals, so nothing a child made can be overwritten</li>
+        <li><b>Installable</b> — <code>manifest.json</code> with maskable icons and an install prompt; no app store, no data bundle to download</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="font-size:1.05rem;margin-bottom:12px">On-device scoring</h3>
+      <ul style="margin:0;padding-left:1.15em;font-size:14.3px;color:var(--ink-soft);display:grid;gap:7px">
+        <li><b>Explainable features first</b> — stroke count, path length, curvature variance, closure rate, ink coverage, symmetry, bounding-box ratio, computed in plain JavaScript. These work with no model at all and give the project a defensible floor.</li>
+        <li><b>Quantised vision model</b> — a MobileNet-class backbone with regression heads, run through ONNX Runtime Web (WASM + SIMD) in a Web Worker so the canvas never stutters</li>
+        <li><b>Audio features</b> — Web Audio <code>AnalyserNode</code> for cadence, pause ratio and pitch variance; optional on-device transcription for lexical diversity</li>
+        <li><b>Budget</b> — under three seconds per submission on a 2&nbsp;GB Android, models under 15&nbsp;MB total</li>
+        <li><b>Human-in-the-loop</b> — every signal is advisory, every alert is confirmed by a trained adult, and no score is ever shown to a child as a grade</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:16px"><b>Two limitations to state honestly in Chapter One, because an examiner will find them.</b> First, low-resource-language speech recognition is weak: Kiswahili is workable, Luganda and Sheng much less so, which is why the audio pipeline is designed around acoustic features plus optional teacher-confirmed transcription rather than depending on automatic transcription. Second, a drawing-based developmental index built on Western norming samples carries real bias risk — so the project must include a local norming exercise and a documented bias audit across gender, age and disability status, and must never present a score as a clinical diagnosis.</div>
+</section>
+
+<!-- ============ 07 CHAPTER ONE ============ -->
+<section>
+  <div class="shead"><span class="snum">07</span><h2>Chapter One, mapped to the rubric</h2></div>
+  <p class="sdek">Everything below is draft material for the Unit Two submission, laid out in the assignment's own section order. Figures are marked where you must verify the current number against the named source before you submit.</p>
+
+  <h3 style="font-size:1.18rem;margin-bottom:8px">1.1 Introduction and Background</h3>
+  <p style="font-size:15px;color:var(--ink-soft);margin-bottom:14px">Build the funnel broad to narrow — the assignment is explicit about this. The chain of themes to move through, in order:</p>
+  <p class="mono" style="font-size:12.5px;line-height:2;color:var(--ink-soft);margin-bottom:18px">Education → Foundational Learning &amp; Learning Poverty → Sub-Saharan Africa → Child Development &amp; Developmental Screening → Diagnostic Scarcity in Low-Resource Schools → Arts, Design &amp; Culture as Expressive Medium → Creative Expression as Assessment → Educational Technology → Offline-First Web Systems &amp; On-Device Machine Learning → Child Safeguarding &amp; Data Protection → Child-Centred Pedagogy &amp; Longitudinal Portfolios → Vulnerable Children in Urban Informal Settlements</p>
+
+  <div class="scroller">
+    <table>
+      <thead><tr><th style="width:38%">Claim to anchor</th><th style="width:30%">Source to cite</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Around 9 in 10 children in Sub-Saharan Africa cannot read and understand a simple text by age 10</td><td>World Bank / UNESCO / UNICEF, <i>State of Global Learning Poverty</i> (2022)</td><td><span class="tag t-och">verify figure</span></td></tr>
+        <tr><td>Sub-Saharan Africa holds the largest out-of-school population of any region</td><td>UNESCO Institute for Statistics; GEM Report</td><td><span class="tag t-och">verify figure</span></td></tr>
+        <tr><td>Roughly 250 million children under 5 in low- and middle-income countries are at risk of not reaching their developmental potential</td><td>Black et al., <i>The Lancet</i> ECD Series (2017)</td><td><span class="tag t-sis">well established</span></td></tr>
+        <tr><td>Most developmental disability in low-income settings is never formally identified before school failure</td><td>WHO / UNICEF disability and ECD reporting</td><td><span class="tag t-och">verify wording</span></td></tr>
+        <tr><td>Pupil–teacher ratios in low-cost urban schools make individual screening impossible</td><td>UNESCO UIS; national basic-education statistics for your country</td><td><span class="tag t-och">get local figure</span></td></tr>
+        <tr><td>A minority of the African population uses the internet; connectivity is intermittent and mobile-only</td><td>ITU, <i>Facts and Figures</i>; GSMA, <i>Mobile Economy Sub-Saharan Africa</i></td><td><span class="tag t-och">verify figure</span></td></tr>
+        <tr><td>A large share of children experience violence before 18, often undisclosed</td><td>Violence Against Children Surveys (Kenya / Uganda)</td><td><span class="tag t-och">get country figure</span></td></tr>
+        <tr><td>Arts education shows measurable transfer to motor, spatial and language development</td><td>Winner, Goldstein &amp; Vincent-Lancrin, OECD (2013)</td><td><span class="tag t-sis">well established</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="thread">
+
+  <h3 style="font-size:1.18rem;margin-bottom:8px">1.2 Problem statement</h3>
+  <p style="font-size:15px;color:var(--ink-soft);margin-bottom:16px">The rubric wants the two closest existing solutions named, cited, and shown to fall short. Yours are already well chosen — here they are sharpened, with a third worth a sentence.</p>
+  <div class="stack-sm">
+    <div class="card"><span class="tag t-ind">closest solution 1</span><h4 style="font-size:1.02rem;margin:9px 0 6px">Commercial school analytics — Zeraki Analytics, QuickSchools and similar</h4><p style="font-size:14.4px;color:var(--ink-soft)">Subscription-priced, cloud-dependent, and built around secondary-school examination preparation. They digitise binary attendance and numeric exam scores. <b>Where they fall short:</b> they require a literate learner, a reliable connection and a recurring fee; they capture outcome, never development; and they have no representation at all for a child who cannot yet read.</p></div>
+    <div class="card"><span class="tag t-ind">closest solution 2</span><h4 style="font-size:1.02rem;margin:9px 0 6px">Paper developmental instruments — ASQ-3, Goodenough-Harris / Naglieri Draw-A-Person, Denver-II, MDAT</h4><p style="font-size:14.4px;color:var(--ink-soft)">Clinically validated and genuinely well designed. <b>Where they fall short:</b> twenty to thirty minutes of one-to-one administration by a trained assessor, manual scoring, and a paper record that never becomes a trend. At the pupil–teacher ratios of a community school they are not merely difficult — the literature shows they are abandoned.</p></div>
+    <div class="card"><span class="tag t-och">worth one sentence</span><h4 style="font-size:1.02rem;margin:9px 0 6px">Consumer creative and learning apps</h4><p style="font-size:14.4px;color:var(--ink-soft)">Cloud-first, English-first, and designed for a child with their own device and a parent's account. They produce output but no measurement, no teacher view, no safeguarding path and no portability.</p></div>
+    <div class="card" style="border-color:var(--ochre);border-left-width:4px"><h4 style="font-size:1.02rem;margin:0 0 6px;color:var(--ochre)">The gap this project addresses</h4><p style="font-size:14.8px;color:var(--ink-soft)">No system exists that is offline-first, multimodal across visual and oral expression, longitudinal from age 8 to 18, and child-owned — one that converts the creative work these classrooms already produce into developmental signal, an adaptive curriculum, a safeguarding early warning and a portable record, on the low-cost devices these schools actually have.</p></div>
+  </div>
+
+  <hr class="thread">
+
+  <h3 style="font-size:1.18rem;margin-bottom:8px">1.3 Main objective</h3>
+  <div class="card" style="border-left:4px solid var(--indigo);margin-bottom:22px"><p style="font-size:15.5px;line-height:1.55">To design, develop and evaluate <b>Loom</b>, an offline-first progressive web application extending the Threads of Hope platform, which uses children's drawings, designs and recorded oral stories as both a continuous developmental screening instrument and an adaptive Arts, Design &amp; Culture curriculum for learners aged 8 to 18 — producing, by age 18, a verified and exportable creative portfolio the child owns.</p></div>
+
+  <h3 style="font-size:1.1rem;margin-bottom:12px">1.3.1 Specific objectives</h3>
+
+  <div class="obj">
+    <div class="obj-h"><span class="id">SO1</span><p>Design and implement a child-safe account and Studio module — canvas drawing, voice recording and photo capture of physical work — usable without reading, and validate it with 60 learners aged 8–18 across two partner schools within 4 months.</p></div>
+    <div class="smart"><span><b>S</b> Studio + child auth</span><span><b>M</b> 60 learners, task completion unaided</span><span><b>A</b> extends existing React stack</span><span><b>R</b> removes the literacy barrier</span><span><b>T</b> 4 months</span></div>
+  </div>
+  <div class="obj">
+    <div class="obj-h"><span class="id">SO2</span><p>Develop an on-device multimodal scoring pipeline producing at least six developmental indices per submission, returning a result in under 3 seconds on a 2&nbsp;GB-RAM Android device with no network connection, by month 6.</p></div>
+    <div class="smart"><span><b>S</b> 6 indices, on-device</span><span><b>M</b> &lt;3s, 2GB device, offline</span><span><b>A</b> ONNX Runtime Web + Web Worker</span><span><b>R</b> no psychologist, no connection</span><span><b>T</b> month 6</span></div>
+  </div>
+  <div class="obj">
+    <div class="obj-h"><span class="id">SO3</span><p>Build a four-stage, four-strand Arts, Design &amp; Culture competency framework spanning ages 8 to 18, encoded as a machine-readable graph, and validate its stage descriptors with at least 6 educators and 2 subject specialists before field deployment.</p></div>
+    <div class="smart"><span><b>S</b> 4 stages × 4 strands</span><span><b>M</b> 6 educators + 2 specialists sign-off</span><span><b>A</b> built from existing syllabus and craft practice</span><span><b>R</b> gives the signals somewhere to lead</span><span><b>T</b> pre-deployment</span></div>
+  </div>
+  <div class="obj">
+    <div class="obj-h"><span class="id">SO4</span><p>Implement an offline-first synchronisation layer — service worker, IndexedDB outbox and idempotent batch replay — that supports a full 40-minute classroom session with zero connectivity and reconciles without data loss, demonstrated across 100 queued operations per device.</p></div>
+    <div class="smart"><span><b>S</b> SW + IndexedDB + batch sync</span><span><b>M</b> 40 min offline, 100 ops, zero loss</span><span><b>A</b> standard web platform APIs</span><span><b>R</b> the classrooms have no connection</span><span><b>T</b> month 7</span></div>
+  </div>
+  <div class="obj">
+    <div class="obj-h"><span class="id">SO5</span><p>Deliver a teacher console with a cohort development heatmap and a human-in-the-loop early-warning triage queue, and evaluate it over a 12-week deployment against teacher-reported usefulness and time-to-review per child.</p></div>
+    <div class="smart"><span><b>S</b> heatmap + triage queue</span><span><b>M</b> usefulness score, review minutes/child</span><span><b>A</b> MUI + Recharts, already in the repo</span><span><b>R</b> replaces guesswork with evidence</span><span><b>T</b> 12-week field window</span></div>
+  </div>
+  <div class="obj">
+    <div class="obj-h"><span class="id">SO6</span><p>Produce and evaluate the Golden Thread portfolio export — a child-owned archive, skills passport and revocable public link — with at least 15 learners in the oldest band, and assess it against entry requirements for local art schools, apprenticeships and creative employers by month 10.</p></div>
+    <div class="smart"><span><b>S</b> portfolio + passport + share link</span><span><b>M</b> 15 learners, assessed against real entry criteria</span><span><b>A</b> client-side export over existing media</span><span><b>R</b> the child leaves holding an asset</span><span><b>T</b> month 10</span></div>
+  </div>
+
+  <hr class="thread">
+
+  <h3 style="font-size:1.18rem;margin-bottom:12px">1.4 Research questions</h3>
+  <div class="scroller">
+    <table>
+      <thead><tr><th style="width:9%">#</th><th>Question</th><th style="width:13%">Maps to</th></tr></thead>
+      <tbody>
+        <tr><td><b>RQ1</b></td><td>To what extent can children aged 8–18 with limited or no literacy complete an unassisted creative submission — drawing plus recorded story — in a browser-based studio on a shared low-cost device?</td><td>SO1</td></tr>
+        <tr><td><b>RQ2</b></td><td>How accurately do on-device visual and acoustic features extracted from children's drawings and oral narratives correspond to established developmental indicators assessed by a trained practitioner?</td><td>SO2</td></tr>
+        <tr><td><b>RQ3</b></td><td>What four-stage Arts, Design &amp; Culture competency progression do educators and specialists validate as both developmentally appropriate and economically relevant for learners aged 8 to 18 in this setting?</td><td>SO3</td></tr>
+        <tr><td><b>RQ4</b></td><td>What offline-first architecture allows a full classroom session to be completed and later reconciled without data loss under the connectivity and device constraints of low-resource urban schools?</td><td>SO4</td></tr>
+        <tr><td><b>RQ5</b></td><td>How does continuous creative-work screening change the time educators spend identifying developmental concerns, and how early are concerns surfaced relative to current practice?</td><td>SO5</td></tr>
+        <tr><td><b>RQ6</b></td><td>What portfolio artefact, assembled across the 8–18 period, do local art schools, apprenticeship programmes and creative employers recognise as credible evidence of capability?</td><td>SO6</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="thread">
+
+  <h3 style="font-size:1.18rem;margin-bottom:12px">1.5 Project scope</h3>
+  <div class="scroller">
+    <table>
+      <thead><tr><th style="width:20%">Boundary</th><th style="width:44%">In scope</th><th>Out of scope</th></tr></thead>
+      <tbody>
+        <tr><td><b>Geographic</b></td><td>Two partner institutions — All Nations Christian Care Preparatory School and Watoto Child Care — in a single urban locality</td><td>National rollout; multi-country deployment</td></tr>
+        <tr><td><b>Population</b></td><td>60–120 learners aged 8–18 across the four stage bands; 6 educators and administrators; 8 women from the existing cooperative as Atelier Guides</td><td>Under-8s; out-of-school youth; mainstream well-resourced schools</td></tr>
+        <tr><td><b>Time</b></td><td>10-month development cycle with a 12-week supervised field deployment</td><td>Multi-year longitudinal validation (named as future work)</td></tr>
+        <tr><td><b>Technical</b></td><td>Offline-first PWA; on-device inference; English, Kiswahili and French; the existing React / Express / PostgreSQL stack</td><td>Native iOS and Android builds; real-time video; blockchain credentialing; automated clinical diagnosis</td></tr>
+        <tr><td><b>Devices</b></td><td>Android 9+ Chrome on 2&nbsp;GB RAM; staffroom Windows laptops; one shared device per 5–8 learners</td><td>Per-child device provision; tablet procurement</td></tr>
+        <tr><td><b>Assessment</b></td><td>Screening and early warning, teacher-confirmed, advisory only</td><td>Clinical diagnosis; any automated referral without a human decision</td></tr>
+        <tr><td><b>Commerce</b></td><td>A pilot Atelier run — a limited number of designs produced and sold through existing donation rails, with a recorded revenue split</td><td>Full e-commerce; payment processing at scale; export logistics</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:14px;color:var(--ink-soft);margin-top:12px">State the ethics boundary here too: institutional ethics approval, guardian consent for every participating child, child assent, data minimisation, local-first storage, and compliance with the applicable national data protection act alongside platform-level GDPR practice.</p>
+
+  <hr class="thread">
+
+  <h3 style="font-size:1.18rem;margin-bottom:12px">1.6 Significance and justification</h3>
+  <p style="font-size:14px;color:var(--ink-faint);margin-bottom:14px">The assignment asks for a maximum of three short paragraphs. These are drafted to that constraint.</p>
+  <div class="stack-sm">
+    <div class="card"><p style="font-size:15px;line-height:1.56">Successful implementation puts developmental screening into schools that have never had it. A teacher managing forty children gains an evidence trail on each one, built from work those children were producing anyway, and learns about a motor delay or a widening withdrawal in weeks rather than at the point of grade failure.</p></div>
+    <div class="card"><p style="font-size:15px;line-height:1.56">For the child, ten years of creative work stop evaporating and start compounding. At eighteen they hold a verified portfolio, a named specialism, real commissions and a mentor reference — tradeable assets in a creative economy that is one of the few growth sectors genuinely open to them.</p></div>
+    <div class="card"><p style="font-size:15px;line-height:1.56">For the wider field, the project demonstrates that multimodal developmental assessment can run entirely on-device, in a browser, offline, on hardware these schools already own — removing the subscription, the connection and the visiting specialist that currently make such screening a privilege of well-resourced systems.</p></div>
+  </div>
+</section>
+
+<!-- ============ 08 ALIGNMENT ============ -->
+<section>
+  <div class="shead"><span class="snum">08</span><h2>Alignment with the mission statement</h2></div>
+  <p class="sdek">The rubric scores this explicitly. Here is the mapping, line by line, from your own words to what the system does.</p>
+  <div class="scroller">
+    <table>
+      <thead><tr><th style="width:36%">From the mission</th><th>How Loom delivers it</th></tr></thead>
+      <tbody>
+        <tr><td><i>"transform foundational education for vulnerable children"</i></td><td>Continuous developmental screening plus a ten-year competency ladder, replacing paper registers and rote testing</td></tr>
+        <tr><td><i>"partnering with community and faith-based schools"</i></td><td>Institutional deployment through two named partner schools, with educators as primary operators — not a parallel programme that bypasses them</td></tr>
+        <tr><td><i>"integrate creative arts and design-based learning"</i></td><td>Drawing, design and oral storytelling are the application's primary input surfaces and its assessment instrument</td></tr>
+        <tr><td><i>"and holistic mentorship"</i></td><td><code>MentorshipPair</code> links women from the cooperative and Stage-4 children to younger learners, with logged, assessed hours</td></tr>
+        <tr><td><i>"empowering the next generation to break cycles of marginalisation"</i></td><td>The Golden Thread portfolio and the Thread-to-Market revenue split give the child a verified record and a funded exit at eighteen</td></tr>
+        <tr><td><i>"every child deserves a chance to dream"</i> <span style="color:var(--ink-faint)">— Echoes of Hope</span></td><td>Child agency is enforced in the schema: the child owns the account, the work and the portfolio, and controls what is shared</td></tr>
+        <tr><td><i>"every woman deserves the opportunity to realise her worth"</i></td><td>Every existing women's module is preserved; the Atelier Guide role turns tailoring and craft skill into paid production of children's designs</td></tr>
+        <tr><td>Global Challenge: <b>Education</b></td><td>Targets the root cause — undetected early learning loss — rather than the dropout symptom</td></tr>
+        <tr><td>Global Opportunity: <b>Arts, Design &amp; Culture</b></td><td>Treats creative expression as the diagnostic medium, the pedagogy and the economic pathway at once</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 09 RUBRIC ============ -->
+<section>
+  <div class="shead"><span class="snum">09</span><h2>Rubric self-check</h2></div>
+  <p class="sdek">Forty points across nine criteria. What mastery requires, and where in this blueprint the material for it sits.</p>
+  <div class="scroller">
+    <table>
+      <thead><tr><th style="width:21%">Criterion</th><th style="width:7%">Pts</th><th style="width:38%">What mastery asks for</th><th>Where to draw from</th></tr></thead>
+      <tbody>
+        <tr><td><b>Background</b></td><td class="num">4</td><td>Comprehensive, clearly relevant, 10+ scholarly references integrated</td><td>§07 theme funnel and claim table; §10 references</td></tr>
+        <tr><td><b>Problem statement</b></td><td class="num">5</td><td>Concise, articulates the gap, connects to mission and Global Challenge</td><td>§07 · 1.2 — two solutions, their shortfall, the gap stated</td></tr>
+        <tr><td><b>Objectives</b></td><td class="num">4</td><td>SMART, directly addressing the problem, linked to the mission</td><td>§07 · 1.3 — six objectives with S-M-A-R-T tagged</td></tr>
+        <tr><td><b>Research questions</b></td><td class="num">5</td><td>Clear, focused, addressing the problem and the objectives</td><td>§07 · 1.4 — six questions mapped 1:1 to objectives</td></tr>
+        <tr><td><b>Significance &amp; justification</b></td><td class="num">4</td><td>Benefits articulated, stakeholders identified, rationale evidenced</td><td>§07 · 1.6 and §05 — three paragraphs, four stakeholder groups</td></tr>
+        <tr><td><b>Scope</b></td><td class="num">4</td><td>Location, time frame, population, methods and key variables bounded</td><td>§07 · 1.5 — seven boundaries, in and out of scope</td></tr>
+        <tr><td><b>Alignment with mission</b></td><td class="num">4</td><td>All sections aligned, addressing one of the 14 Global Challenges</td><td>§08 — line-by-line mapping table</td></tr>
+        <tr><td><b>References</b></td><td class="num">5</td><td>At least 10 scholarly references, properly cited, consistent format</td><td>§10 — 20 sources to verify and format in APA 7</td></tr>
+        <tr><td><b>Writing, organisation, formatting</b></td><td class="num">5</td><td>Clear, coherent, APA 7, Times New Roman 12pt, double-spaced, 1" margins, first-line indents</td><td>Carry the structure across; apply the formatting in Word at the end</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note" style="margin-top:16px"><b>Before you submit.</b> The deliverable is a Word or PDF file named <code>StudentName_Unit Two Assignment</code>, formatted in APA 7 — Times New Roman 12pt body, double-spaced, 1-inch margins, first-line indent on every paragraph, Arial or Helvetica headings. This page is the source material; the formatting pass happens in the document itself.</div>
+</section>
+
+<!-- ============ 10 REFERENCES ============ -->
+<section>
+  <div class="shead"><span class="snum">10</span><h2>Reference scaffold</h2></div>
+  <p class="sdek">Twenty sources covering pedagogy, developmental assessment, the regional evidence base, the web platform and the legal frame — twice the ten the rubric requires, so you can drop any you cannot access.</p>
+  <div class="note" style="margin-bottom:22px"><b>Verify every entry before you submit.</b> These are real, well-known sources and the details are given as accurately as possible, but editions, page ranges, DOIs and publication years need checking against the actual record. A reference list with a wrong year costs more marks than a shorter list that is correct.</div>
+  <ol class="refs">
+    <li>Black, M. M., Walker, S. P., Fernald, L. C. H., et al. (2017). Early childhood development coming of age: Science through the life course. <i>The Lancet, 389</i>(10064), 77–90.</li>
+    <li>World Bank, UNESCO, UNICEF, FCDO, USAID &amp; Bill &amp; Melinda Gates Foundation. (2022). <i>The state of global learning poverty: 2022 update.</i></li>
+    <li>UNESCO. (2023). <i>Global education monitoring report 2023: Technology in education — A tool on whose terms?</i> UNESCO Publishing.</li>
+    <li>UNESCO Institute for Statistics. (latest). <i>Out-of-school children and youth indicators.</i></li>
+    <li>Vygotsky, L. S. (1978). <i>Mind in society: The development of higher psychological processes.</i> Harvard University Press.</li>
+    <li>Carr, M., &amp; Lee, W. (2012). <i>Learning stories: Narrative assessment in early childhood education.</i> SAGE.</li>
+    <li>Edwards, C., Gandini, L., &amp; Forman, G. (Eds.). (2012). <i>The hundred languages of children: The Reggio Emilia experience in transformation</i> (3rd ed.). Praeger.</li>
+    <li>Paris, D., &amp; Alim, H. S. (Eds.). (2017). <i>Culturally sustaining pedagogies: Teaching and learning for justice in a changing world.</i> Teachers College Press.</li>
+    <li>Deci, E. L., &amp; Ryan, R. M. (2000). The "what" and "why" of goal pursuits: Human needs and the self-determination of behavior. <i>Psychological Inquiry, 11</i>(4), 227–268.</li>
+    <li>Hart, R. A. (1992). <i>Children's participation: From tokenism to citizenship</i> (Innocenti Essays No. 4). UNICEF International Child Development Centre.</li>
+    <li>CAST. (2018). <i>Universal design for learning guidelines version 2.2.</i></li>
+    <li>Winner, E., Goldstein, T. R., &amp; Vincent-Lancrin, S. (2013). <i>Art for art's sake? The impact of arts education.</i> OECD Publishing.</li>
+    <li>Squires, J., &amp; Bricker, D. (2009). <i>Ages &amp; Stages Questionnaires® (ASQ-3): A parent-completed child monitoring system</i> (3rd ed.). Paul H. Brookes Publishing.</li>
+    <li>Naglieri, J. A. (1988). <i>Draw A Person: A quantitative scoring system.</i> The Psychological Corporation.</li>
+    <li>Harris, D. B. (1963). <i>Children's drawings as measures of intellectual maturity: A revision and extension of the Goodenough Draw-a-Man Test.</i> Harcourt, Brace &amp; World.</li>
+    <li>Gladstone, M., Lancaster, G. A., Umar, E., et al. (2010). The Malawi Developmental Assessment Tool (MDAT): The creation, validation, and reliability of a tool to assess child development in rural African settings. <i>PLoS Medicine, 7</i>(5), e1000273.</li>
+    <li>International Telecommunication Union. (latest). <i>Measuring digital development: Facts and figures.</i> ITU Publications.</li>
+    <li>GSMA. (latest). <i>The mobile economy Sub-Saharan Africa.</i> GSMA Intelligence.</li>
+    <li>Biørn-Hansen, A., Majchrzak, T. A., &amp; Grønli, T.-M. (2017). Progressive web apps: The possible web-native unifier for mobile development. <i>Proceedings of WEBIST 2017</i>, 344–351.</li>
+    <li>Smilkov, D., Thorat, N., Assogba, Y., et al. (2019). TensorFlow.js: Machine learning for the web and beyond. <i>Proceedings of MLSys 2019.</i></li>
+  </ol>
+  <p style="font-size:14px;color:var(--ink-soft);margin-top:18px">Add to these, for the legal and safeguarding sections: the <b>UN Convention on the Rights of the Child (1989)</b>, particularly Articles 12, 13 and 31, and the <b>data protection act of the country you deploy in</b> — the Kenya Data Protection Act No. 24 of 2019 or the Uganda Data Protection and Privacy Act 2019.</p>
+</section>
+
+<!-- ============ 11 ROADMAP ============ -->
+<section>
+  <div class="shead"><span class="snum">11</span><h2>Ten-month build</h2></div>
+  <p class="sdek">The sequence that makes the scope section credible. Each phase ends with something demonstrable, so a slipped phase costs you one capability rather than the project.</p>
+  <div class="scroller">
+    <table>
+      <thead><tr><th style="width:13%">Months</th><th style="width:26%">Phase</th><th>Ships</th></tr></thead>
+      <tbody>
+        <tr><td class="num"><b>1–2</b></td><td>Foundations and consent</td><td>Child account and PIN auth, guardian consent ledger, new models and migration, role routing, ethics approval submitted</td></tr>
+        <tr><td class="num"><b>2–4</b></td><td>The Studio</td><td>Canvas with pressure and undo, MediaRecorder story booth, photo capture of paper work, audio-led icon-first navigation in three languages</td></tr>
+        <tr><td class="num"><b>4–5</b></td><td>Offline core</td><td>Service worker, IndexedDB outbox, batch sync endpoint, idempotency and conflict policy, install prompt — a full session with the radio off</td></tr>
+        <tr><td class="num"><b>5–6</b></td><td>Scoring pipeline</td><td>Explainable feature extraction first, then the quantised vision model in a Web Worker; acoustic features; local norming begun</td></tr>
+        <tr><td class="num"><b>5–7</b></td><td>Ladder and quests</td><td>Competency graph seeded, educator and specialist validation, adaptive quest assignment, attainment states and evidence links</td></tr>
+        <tr><td class="num"><b>6–7</b></td><td>Teacher console</td><td>Cohort heatmap, growth radar, early-warning triage with human confirmation, batch review</td></tr>
+        <tr><td class="num"><b>7–8</b></td><td>Thread and Atelier</td><td>Golden Thread portfolio, export, revocable share link, Atelier Guide view, pilot production run and revenue split</td></tr>
+        <tr><td class="num"><b>8–10</b></td><td>Field deployment</td><td>12 weeks in both schools; accuracy against practitioner assessment; bias audit; teacher time-to-review; portfolio assessed against real entry criteria; write-up</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="foot">
+  <p><b>Loom Child Studio</b> — child-development blueprint for Threads of Hope, prepared as source material for the Unit Two Project Draft.</p>
+  <p>Repository: <code>docs/LOOM_Child_Development_Blueprint.html</code> on branch <code>claude/inspiring-maxwell-xbzp30</code>.</p>
+  <p>Statistics marked <span class="tag t-och" style="font-size:9.5px">verify figure</span> and every reference must be checked against the source before submission.</p>
+</footer>
+
+</div>
