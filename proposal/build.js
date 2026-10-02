@@ -63,7 +63,7 @@ const titlePage = [
   new Paragraph({ children: [new TextRun({ text: TITLE, font: BODY, size: 24, bold: true })],
     spacing: DBL, alignment: AlignmentType.CENTER }),
   blank(),
-  new Paragraph({ children: [t("Daudi Makumbi")], spacing: DBL, alignment: AlignmentType.CENTER }),
+  new Paragraph({ children: [t("Karabo Ojiambo")], spacing: DBL, alignment: AlignmentType.CENTER }),
   new Paragraph({ children: [t("African Leadership University")], spacing: DBL, alignment: AlignmentType.CENTER }),
   new Paragraph({ children: [t("BSE: Software Engineering — Full-Stack Web Development")], spacing: DBL, alignment: AlignmentType.CENTER }),
   new Paragraph({ children: [t("Unit Two Assignment: Project Draft")], spacing: DBL, alignment: AlignmentType.CENTER }),
@@ -231,6 +231,10 @@ ref("Zeraki. (2024). ", ti("Zeraki Analytics: School analytics and management"),
 ];
 
 const doc = new Document({
+  creator: "Karabo Ojiambo",
+  lastModifiedBy: "Karabo Ojiambo",
+  title: "Unit Two Assignment: Project Draft",
+  description: "Chapter One of a research proposal.",
   styles: { default: { document: { run: { font: BODY, size: 24 } } } },
   sections: [{
     properties: {
@@ -250,6 +254,6 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then(b => {
-  fs.writeFileSync("Makumbi_Unit Two Assignment.docx", b);
+  fs.writeFileSync("Ojiambo_Unit Two Assignment.docx", b);
   console.log("written:", b.length, "bytes");
 });

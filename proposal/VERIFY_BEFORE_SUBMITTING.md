@@ -34,12 +34,19 @@ Background score.
 | UNICEF (2021) | Confirm "Seen, Counted, Included" title and year |
 | Zeraki / QuickSchools | Confirm URLs resolve and add retrieval dates if your department requires them |
 
+## Name check
+
+The document is authored as **Karabo Ojiambo**. Your mission statement document
+(`Mission: A Journey of Hope & Transformation`) signs off as **Karabo Odhiambo**.
+Confirm which spelling is correct and make the title page, the filename and the
+mission document agree before you submit.
+
 ## Fill in before submitting
 
 - Instructor name on the title page (currently `[Instructor name]`)
-- Confirm your name spelling and the course title on the title page
+- Confirm the course title on the title page
 - Confirm the submission date
-- Rename the file to match the required pattern if your name differs from `Makumbi`
+- Confirm the surname spelling on the title page and in the filename (see note below)
 
 ## What is already compliant
 
