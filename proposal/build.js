@@ -56,7 +56,7 @@ const ref = (...runs) => new Paragraph({
 
 const blank = () => new Paragraph({ children: [t("")], spacing: DBL });
 
-const TITLE = "Offline-First Creative Assessment in Low-Resource Ugandan Schools: Enhancing Developmental Screening, Arts and Design Skills Progression, and Learner Portfolio Ownership Without Requiring Literacy or Internet Connectivity";
+const TITLE = "Offline-First Creative Assessment in Low-Resource Ugandan Schools: Developmental Screening and Arts Skills Progression Without Literacy or Connectivity";
 
 // ---------- TITLE PAGE ----------
 const titlePage = [
